@@ -78,9 +78,10 @@
             for(var u in users){
                 if(users[u]._id === userid){
                     users.splice(u, 1);
+                    return true;
                 }
             }
-            return null;
+            return false;
         }
 
     }

@@ -4,9 +4,9 @@
 (function () {
     angular
         .module("WebAppMaker")
-        .factory("PageService", pageService);
+        .factory("PageService", PageService);
 
-    function pageService(){
+    function PageService(){
         var pages = [
             { "_id": "321", "name": "Post 1", "websiteId": "456", "description": "Lorem" },
             { "_id": "432", "name": "Post 2", "websiteId": "456", "description": "Lorem" },
@@ -15,19 +15,62 @@
 
         var api = {
             "createPage": createPage,
-            "findPageByWebsiteId": findPageByWebsiteId,
+            "findPagesByWebsiteId": findPagesByWebsiteId,
             "findPageById": findPageById,
-            "updatePage": updatePage,
-            "deletePage": deletePage
+            "updatePage": updatePage
+            // "deletePage": deletePage
         }
 
         return api;
 
         /*TODO function description for the following.
-        * createPage(websiteId, page)
-        * findPageByWebsiteId(websiteId)
-        * findPageById(pageId)
-        * updatePage(pageId, page)
+        * (done) createPage(websiteId, page)
+        * (done) findPagesByWebsiteId(websiteId)
+        * (done) findPageById(pageId)
+        * (done) updatePage(pageId, page)
         * deletePage(pageId)*/
+
+        function createPage(websiteId, page) {
+            var newPage = new Object();
+            newPage._id = new Date().getTime() + "";
+            newPage.name = page.name;
+            newPage.websiteId = websiteId;
+            if(null != page.description) {
+                newPage.description = page.description;
+            }
+
+            pages.push(newPage);
+            return(newPage);
+        }
+
+        function findPagesByWebsiteId(websiteId) {
+            var pagesForWebsite = [];
+            for(var p in pages) {
+                if(pages[p].websiteId === websiteId) {
+                    pagesForWebsite.push(pages[p]);
+                }
+            }
+            return pagesForWebsite;
+        }
+
+        function findPageById(pageId) {
+            for(var p in pages) {
+                if(pages[p]._id === pageId) {
+                    return angular.copy(pages[p]);
+                }
+            }
+            return null;
+        }
+
+        function updatePage(pageId, page) {
+            for(var p in pages) {
+                if(pages[p]._id === pageId) {
+                    pages[p].name = page.name;
+                    pages[p].description = page.description;
+                    return page;
+                }
+            }
+            return null;
+        }
     }
 })();

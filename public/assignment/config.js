@@ -60,22 +60,34 @@
                 controllerAs: "model"
             })
             .when("/user/:uid/website", {
-                templateUrl: websiteViews + websiteListView
+                templateUrl: websiteViews + websiteListView,
+                controller: "WebsiteListController",
+                controllerAs: "model"
             })
             .when("/user/:uid/website/new", {
-                templateUrl: websiteViews + websiteNewView
+                templateUrl: websiteViews + websiteNewView,
+                controller: "WebsiteNewController",
+                controllerAs: "model"
             })
             .when("/user/:uid/website/:wid", {
-                templateUrl: websiteViews + websiteEditView
+                templateUrl: websiteViews + websiteEditView,
+                controller: "WebsiteEditController",
+                controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page", {
-                templateUrl: pageViews + pageListView
+                templateUrl: pageViews + pageListView,
+                controller: "PageListController",
+                controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page/new", {
-                templateUrl: pageViews + pageNewView
+                templateUrl: pageViews + pageNewView,
+                controller: "PageNewController",
+                controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page/:pid", {
-                templateUrl: pageViews + pageEditView
+                templateUrl: pageViews + pageEditView,
+                controller: "PageEditController",
+                controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page/:pid/widget", {
                 templateUrl: widgetViews + widgetListView

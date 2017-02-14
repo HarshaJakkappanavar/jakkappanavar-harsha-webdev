@@ -3,32 +3,32 @@
         <div class="row">
             <div class="col-sm-4 hidden-xs">
                 <div class="navbar-text pull-left">
-                    <a href="website-list.html">
+                    <a href="#/user/{{model.userId}}/website">
                         <span class="glyphicon glyphicon-chevron-left"></span>
                     </a>
                 </div>
                 <div class="navbar-text pull-right">
-                    <a href="website-new.html">
+                    <a href="#/user/{{model.userId}}/website/new">
                         <span class="glyphicon glyphicon-plus"></span>
                     </a>
                 </div>
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Websites</a>
+                    <a class="navbar-brand" >Websites</a>
                 </div>
             </div>
             <div class="col-sm-8">
                 <div class="navbar-text pull-left hidden-sm hidden-md hidden-lg">
-                    <a href="website-list.html">
+                    <a href="#/user/{{model.userId}}/website">
                         <span class="glyphicon glyphicon-chevron-left"></span>
                     </a>
                 </div>
                 <div class="navbar-text pull-right">
-                    <a href="website-list.html">
+                    <a ng-click="model.createWebsite(website)">
                         <span class="glyphicon glyphicon-ok"></span>
                     </a>
                 </div>
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">New Website</a>
+                    <a class="navbar-brand">New Website</a>
                 </div>
             </div>
         </div>
@@ -40,47 +40,19 @@
             <ul class="list-group">
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col-xs-10">
-                            <a href="../../page/page-list.html">Address Book App</a>
-                        </div>
-                        <div class="col-xs-2">
-                            <a href="website-edit.html">
-                                <span class="glyphicon glyphicon-cog pull-right"></span>
-                            </a>
+                        <div class="col-xs-11">
+                            Name
+                            <span class="glyphicon glyphicon-triangle-top"></span>
                         </div>
                     </div>
                 </li>
-                <li class="list-group-item">
+                <li ng-repeat="website in model.websites" class="list-group-item">
                     <div class="row">
                         <div class="col-xs-10">
-                            <a href="../../page/page-list.html">Blogger</a>
+                            <a href="#/user/{{model.userId}}/website/{{website._id}}/page">{{website.name}}</a>
                         </div>
                         <div class="col-xs-2">
-                            <a href="website-edit.html">
-                                <span class="glyphicon glyphicon-cog pull-right"></span>
-                            </a>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-xs-10">
-                            <a href="../../page/page-list.html">Blogging App</a>
-                        </div>
-                        <div class="col-xs-2">
-                            <a href="website-edit.html">
-                                <span class="glyphicon glyphicon-cog pull-right"></span>
-                            </a>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-xs-10">
-                            <a href="../../page/page-list.html">Script Testing App</a>
-                        </div>
-                        <div class="col-xs-2">
-                            <a href="website-edit.html">
+                            <a href="#/user/{{model.userId}}/website/{{website._id}}">
                                 <span class="glyphicon glyphicon-cog pull-right"></span>
                             </a>
                         </div>
@@ -89,11 +61,16 @@
             </ul>
         </div>
         <div class="col-sm-8 col-xs-12 wbdv-right-pane">
+            <div ng-show="model.error" class="alert alert-danger">
+                {{model.error}}
+            </div>
             <label for="name">Name</label>
-            <input type="text" id="name"
+            <input ng-model="website.name"
+                   type="text" id="name"
                    placeholder="Name" class="form-control"/>
+
             <label for="description">Description</label>
-            <textarea id="description" class="form-control" rows="8"
+            <textarea ng-model="website.description" id="description" class="form-control" rows="8"
                       placeholder="Description"></textarea>
         </div>
     </div>
@@ -101,7 +78,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="navbar-text pull-right">
-            <a href="../user/profile.html">
+            <a href="#/user/{{model.userId}}">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </div>
