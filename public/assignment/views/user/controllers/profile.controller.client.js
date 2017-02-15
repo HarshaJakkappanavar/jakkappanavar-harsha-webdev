@@ -11,6 +11,7 @@
         var vm = this;
 
         vm.update = update;
+        vm.deleteUser = deleteUser;
 
 
         function init(){
@@ -37,6 +38,13 @@
             }
         }
 
-
+        function deleteUser() {
+            var retVal = UserService.deleteUser(vm.userId);
+            if(retVal) {
+                $location.url("/");
+            } else {
+                vm.error = "Could not delete the user";
+            }
+        }
     }
 })();

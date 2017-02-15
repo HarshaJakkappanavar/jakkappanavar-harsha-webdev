@@ -8,7 +8,7 @@
         .module("WebAppMaker")
         .controller("PageListController", PageListController);
 
-    function PageListController($location, $routeParams, PageService) {
+    function PageListController($routeParams, PageService) {
 
         var vm = this;
         vm.userId = $routeParams.uid;

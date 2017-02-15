@@ -1,0 +1,21 @@
+<label for="url">URL</label>
+<input ng-model="model.widget.url"
+       type="url" id="url"
+       placeholder="" class="form-control"/>
+
+<label for="width">Width</label>
+<input ng-model="model.widget.width"
+       type="text" id="width"
+       placeholder="" value="100%"
+       class="form-control"/>
+
+<label for="upload">Upload</label>
+<input type="file" id="upload"
+       placeholder="No file choosen"
+       class="form-control"/>
+
+<a class="btn btn-primary btn-block">Upload Image</a>
+
+<a ng-click="model.deleteWidget()"
+   class="btn btn-danger btn-block">Delete</a>
+        

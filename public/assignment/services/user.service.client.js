@@ -9,10 +9,10 @@
     function UserService(){
 
         var users = [
-            {_id: "123", username: "alice", password: "alice", firstname: "Alice", lastname: "Wonder"},
-            {_id: "234", username: "bob", password: "bob", firstname: "Bob", lastname: "Marley"},
-            {_id: "345", username: "charly", password: "charly", firstname: "Charly", lastname: "Garcia"},
-            {_id: "456", username: "jannunzi", password: "jannunzi", firstname: "Jose", lastname: "Annunzi"}
+            {_id: "123", username: "alice", password: "alice", firstname: "Alice", lastname: "Wonder", email: "alice@wonder.com"},
+            {_id: "234", username: "bob", password: "bob", firstname: "Bob", lastname: "Marley", email: "bob@marley.com"},
+            {_id: "345", username: "charly", password: "charly", firstname: "Charly", lastname: "Garcia", email: "charly@garcia.com"},
+            {_id: "456", username: "jannunzi", password: "jannunzi", firstname: "Jose", lastname: "Annunzi", email: "jose@annunzi.com"}
         ]
 
       var api = {
@@ -67,6 +67,7 @@
                 if(users[u]._id === userId){
                     users[u].firstname = user.firstname;
                     users[u].lastname = user.lastname;
+                    users[u].email = user.email;
                     return angular.copy(users[u]);
                 }
             }
@@ -76,7 +77,7 @@
         function deleteUser(userId){
 
             for(var u in users){
-                if(users[u]._id === userid){
+                if(users[u]._id === userId){
                     users.splice(u, 1);
                     return true;
                 }

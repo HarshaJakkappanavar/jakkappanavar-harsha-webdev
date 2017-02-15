@@ -40,13 +40,16 @@
 
     <a class="btn btn-primary btn-block"
        href="#/user/{{model.user._id}}/website">Websites</a>
+
     <a class="btn btn-danger btn-block"
        href="#/login">Logout</a>
+
+    <a ng-click="model.deleteUser()" class="btn btn-danger btn-block">Unregister</a>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="navbar-text pull-right">
-            <a href="#">
+            <a>
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </div>

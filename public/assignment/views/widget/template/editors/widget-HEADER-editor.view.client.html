@@ -1,0 +1,19 @@
+<label for="text">Text</label>
+<input ng-model="model.widget.text"
+       type="text" id="text"
+       placeholder="" value="US Senate Reaches Compromise on Emergency Zika Funding"
+       class="form-control"/>
+
+<label for="size">Size</label>
+<select ng-model="model.widget.size"
+        class="form-control" id="size">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>6</option>
+</select>
+
+<a ng-click="model.deleteWidget()"
+   class="btn btn-danger btn-block">Delete</a>

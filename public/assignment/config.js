@@ -90,13 +90,19 @@
                 controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page/:pid/widget", {
-                templateUrl: widgetViews + widgetListView
+                templateUrl: widgetViews + widgetListView,
+                controller: "WidgetListController",
+                controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page/:pid/widget/new", {
-                templateUrl: widgetViews + widgetChooserView
+                templateUrl: widgetViews + widgetChooserView,
+                controller: "WidgetNewController",
+                controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page/:pid/widget/:wgid", {
-                templateUrl: widgetViews + widgetEditView
+                templateUrl: widgetViews + widgetEditView,
+                controller: "WidgetEditController",
+                controllerAs: "model"
             })
 
     }

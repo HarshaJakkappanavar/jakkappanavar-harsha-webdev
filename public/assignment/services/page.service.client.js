@@ -17,8 +17,8 @@
             "createPage": createPage,
             "findPagesByWebsiteId": findPagesByWebsiteId,
             "findPageById": findPageById,
-            "updatePage": updatePage
-            // "deletePage": deletePage
+            "updatePage": updatePage,
+            "deletePage": deletePage
         }
 
         return api;
@@ -28,7 +28,7 @@
         * (done) findPagesByWebsiteId(websiteId)
         * (done) findPageById(pageId)
         * (done) updatePage(pageId, page)
-        * deletePage(pageId)*/
+        * (done) deletePage(pageId)*/
 
         function createPage(websiteId, page) {
             var newPage = new Object();
@@ -67,10 +67,20 @@
                 if(pages[p]._id === pageId) {
                     pages[p].name = page.name;
                     pages[p].description = page.description;
-                    return page;
+                    return pages[p];
                 }
             }
             return null;
+        }
+
+        function deletePage(pageId) {
+            for(var p in pages) {
+                if(pages[p]._id === pageId) {
+                    pages.splice(p, 1);
+                    return true;
+                }
+            }
+            return false;
         }
     }
 })();

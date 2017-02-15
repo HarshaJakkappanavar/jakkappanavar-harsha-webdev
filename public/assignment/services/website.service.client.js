@@ -24,6 +24,7 @@
             "updateWebsite": updateWebsite,
             "deleteWebsite": deleteWebsite
         }
+
         return api;
 
         /*TODO descriptions for the following funcitons.
@@ -71,7 +72,7 @@
                 if(websites[w]._id === websiteId) {
                     websites[w].name = website.name;
                     websites[w].description = website.description;
-                    return website;
+                    return websites[w];
                 }
             }
             return null;

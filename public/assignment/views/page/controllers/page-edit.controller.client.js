@@ -17,6 +17,7 @@
         vm.pageId = $routeParams.pid;
 
         vm.updatePage = updatePage;
+        vm.deletePage = deletePage;
 
         init();
 
@@ -37,6 +38,15 @@
                 return;
             }
             $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+        }
+
+        function deletePage(pageId) {
+            var retVal = PageService.deletePage(pageId);
+            if(retVal) {
+                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+            } else {
+                vm.error = "Could not delete page.";
+            }
         }
     }
 })();
