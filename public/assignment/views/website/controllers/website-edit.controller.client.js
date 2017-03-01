@@ -21,8 +21,18 @@
         init();
 
         function init() {
-            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
-            vm.website = WebsiteService.findWebsiteById(vm.websiteId);
+            WebsiteService
+                .findWebsitesByUser(vm.userId)
+                .success(function (websites) {
+                    vm.websites = websites;
+                });
+
+            WebsiteService
+                .findWebsiteById(vm.websiteId)
+                .success(function (website) {
+                    vm.website = website;
+                });
+
         }
 
         function updateWebsite(website) {
@@ -32,21 +42,25 @@
                 vm.error = "The widget name cannot be empty.";
                 return;
             }
-            website = WebsiteService.updateWebsite(vm.websiteId, website);
-            if(website == null) {
-                vm.error = "Could not update the website.";
-                return;
-            }
-            $location.url("/user/" + vm.userId + "/website");
+            WebsiteService
+                .updateWebsite(vm.websiteId, website)
+                .success(function () {
+                    $location.url("/user/" + vm.userId + "/website");
+                })
+                .error(function () {
+                    vm.error = "Could not update the website";
+                });
         }
 
         function deleteWebsite(websiteId) {
-            var retVal = WebsiteService.deleteWebsite(websiteId);
-            if(retVal) {
-                $location.url("/user/" + vm.userId + "/website");
-            } else {
-                vm.error = "Could not delete website.";
-            }
+            WebsiteService
+                .deleteWebsite(websiteId)
+                .success(function () {
+                    $location.url("/user/" + vm.userId + "/website");
+                })
+                .error(function () {
+                    vm.error = "Could not delete website.";
+                });
         }
     }
 })();

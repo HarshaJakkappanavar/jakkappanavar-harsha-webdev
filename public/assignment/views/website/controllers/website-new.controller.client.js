@@ -19,7 +19,11 @@
         init();
 
         function init() {
-            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+            WebsiteService
+                .findWebsitesByUser(vm.userId)
+                .success(function (websites) {
+                    vm.websites = websites;
+                });
         }
 
         function createWebsite(website) {
@@ -28,12 +32,14 @@
                 vm.error = "The widget name cannot be empty.";
                 return;
             }
-            website = WebsiteService.createWebsite(vm.userId, website);
-            if(website == null) {
-                vm.error = "Could not create the new website.";
-                return;
-            }
-            $location.url("/user/" + vm.userId + "/website");
+            WebsiteService
+                .createWebsite(vm.userId, website)
+                .success(function () {
+                    $location.url("/user/" + vm.userId + "/website");
+                })
+                .error(function () {
+                    vm.error = "Could not create the new website.";
+                });
         }
     }
 })();

@@ -1,7 +1,7 @@
-<label for="url">URL</label>
-<input ng-model="model.widget.url"
-       type="url" id="url"
-       placeholder="" class="form-control"/>
+<!--<label for="url">URL</label>-->
+<!--<input ng-model="model.widget.url"-->
+       <!--type="url" id="url"-->
+       <!--placeholder="" class="form-control"/>-->
 
 <label for="width">Width</label>
 <input ng-model="model.widget.width"
@@ -9,12 +9,19 @@
        placeholder="" value="100%"
        class="form-control"/>
 
-<label for="upload">Upload</label>
-<input type="file" id="upload"
-       placeholder="No file choosen"
-       class="form-control"/>
-
-<a class="btn btn-primary btn-block">Upload Image</a>
+<form action="/api/upload"  method="post" enctype="multipart/form-data">
+    <label for="upload">Upload</label>
+    <input type="file" id="upload"
+           name="uploadFile"
+           placeholder="No file choosen"
+           class="form-control"/>
+    <input  name="width"    value="{{model.widget.width}}" type="hidden"/>
+    <input  name="userId" value="{{model.userId}}"   type="hidden"/>
+    <input  name="websiteId" value="{{model.websiteId}}"   type="hidden"/>
+    <input  name="pageId" value="{{model.pageId}}"   type="hidden"/>
+    <input  name="widgetId" value="{{model.widget._id}}"   type="hidden"/>
+    <input type="submit" class="btn btn-block btn-primary" value="Upload Image" />
+</form>
 
 <a ng-click="model.deleteWidget()"
    class="btn btn-danger btn-block">Delete</a>

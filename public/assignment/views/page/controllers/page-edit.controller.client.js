@@ -22,8 +22,16 @@
         init();
 
         function init() {
-            vm.pages = PageService.findPagesByWebsiteId(vm.websiteId);
-            vm.page = PageService.findPageById(vm.pageId);
+            PageService
+                .findPagesByWebsiteId(vm.websiteId)
+                .success(function (pages) {
+                    vm.pages = pages;
+                });
+            PageService
+                .findPageById(vm.pageId)
+                .success(function (page) {
+                    vm.page = page;
+                });
         }
 
         function updatePage(page) {
@@ -32,21 +40,25 @@
                 vm.error = "The page name cannot be empty.";
                 return;
             }
-            page = PageService.updatePage(vm.pageId, page);
-            if(page == null) {
-                vm.error = "Could not update the page.";
-                return;
-            }
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+            PageService
+                .updatePage(vm.pageId, page)
+                .success(function () {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                })
+                .error(function () {
+                    vm.error = "Could not update the page.";
+                });
         }
 
         function deletePage(pageId) {
-            var retVal = PageService.deletePage(pageId);
-            if(retVal) {
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
-            } else {
-                vm.error = "Could not delete page.";
-            }
+            PageService
+                .deletePage(pageId)
+                .success(function () {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                })
+                .error(function () {
+                    vm.error = "Could not delete page.";
+                });
         }
     }
 })();

@@ -16,10 +16,15 @@
 
         function init(){
             vm.userId = $routeParams.uid;
-            vm.user = UserService.findUserById(vm.userId);
-            if(null == vm.user) {
-                vm.error = "User not found."
-            }
+            UserService.findUserById(vm.userId)
+                .success(function (user) {
+                    if(user != null) {
+                        vm.user = user;
+                    }
+                })
+                .error(function (err) {
+                    vm.error = "User not found.";
+                });
         }
         init();
 
@@ -30,21 +35,28 @@
                 vm.error = "Username cannot be empty.";
                 return;
             }
-            vm.user = UserService.updateUser(vm.userId, user);
-            if(null == vm.user) {
-                vm.error = "Could not update user.";
-            } else {
-                $location.url("/user/" + vm.user._id);
-            }
+            UserService
+                .updateUser(vm.userId, user)
+                .success(function (user) {
+                    if(user != null) {
+                        vm.user = user;
+                        vm.message = "Successfully updated user."
+                    }
+                })
+                .error(function (err) {
+                    vm.error = "Could not update user.";
+                });
         }
 
         function deleteUser() {
-            var retVal = UserService.deleteUser(vm.userId);
-            if(retVal) {
-                $location.url("/");
-            } else {
-                vm.error = "Could not delete the user";
-            }
+            UserService
+                .deleteUser(vm.userId)
+                .success(function (response) {
+                    $location.url("/");
+                })
+                .error(function (err) {
+                    vm.error = "Could not delete the user.";
+                });
         }
     }
 })();

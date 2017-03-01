@@ -23,21 +23,28 @@
                 vm.error = "The passwords did not match.";
                 return;
             } else {
-                var user = UserService.findUserByUsername(username);
-                if(user != null) {
-                    vm.error = "Username already exists.";
-                    return;
-                }
-            }
-            var user = new Object();
-            user.username = username;
-            user.password = password;
-            var newUser = UserService.createUser(user);
-            if(newUser != null) {
-                $location.url("/user/" + newUser._id);
-            } else {
-                vm.error = "Could not create the user."
+                UserService
+                    .findUserByUsername(username)
+                    .success(function (response) {
+                        vm.error = "Username already exists.";
+                    })
+                    .error(function () {
+                        var user = new Object();
+                        user.username = username;
+                        user.password = password;
+                        UserService
+                            .createUser(user)
+                            .success(function (user) {
+                                if(user != null) {
+                                    $location.url("/user/" + user._id);
+                                }
+                            })
+                            .error(function (err) {
+                                vm.error = "Could not create the user";
+                            });
+                    });
             }
         }
+
     }
 })();

@@ -20,7 +20,11 @@
         init();
 
         function init() {
-            vm.pages = PageService.findPagesByWebsiteId(vm.websiteId);
+            PageService
+                .findPagesByWebsiteId(vm.websiteId)
+                .success(function (pages) {
+                    vm.pages = pages;
+                });
         }
 
         function createPage(page) {
@@ -29,12 +33,14 @@
                 vm.error = "The page name cannot be empty.";
                 return;
             }
-            page = PageService.createPage(vm.websiteId, page);
-            if(page == null) {
-                vm.error = "Could not create the new website.";
-                return;
-            }
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+            PageService
+                .createPage(vm.websiteId, page)
+                .success(function() {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                })
+                .error(function() {
+                    vm.error = "Could not create the new website.";
+                });
         }
     }
 })();
