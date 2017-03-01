@@ -24,7 +24,7 @@
                 .createWidget(vm.pageId, widget)
                 .success(function (widget) {
                     $location.url("/user/" + vm.userId + "/website/" + vm.websiteId
-                        + "/page/" + vm.pageId + "/widget/" + widget._id);
+                        + "/page/" + vm.pageId + "/widget/new/" + widget._id);
                 })
                 .error(function () {
                     vm.error = "Could not create the new widget";

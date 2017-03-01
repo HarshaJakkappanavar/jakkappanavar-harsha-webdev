@@ -104,6 +104,11 @@
                 controller: "WidgetEditController",
                 controllerAs: "model"
             })
+            .when("/user/:uid/website/:wid/page/:pid/widget/new/:wgid", {
+                templateUrl: widgetViews + widgetEditView,
+                controller: "WidgetEditController",
+                controllerAs: "model"
+            })
 
     }
 })();

@@ -139,6 +139,7 @@ module.exports = function (app) {
 
     function deleteWidget(req, res) {
         var widgetId = req.params.widgetId;
+        const fs = require('fs');
         for(var w in widgets) {
             if(widgets[w]._id === widgetId) {
                 if(widgets[w].widgetType == 'IMAGE'){

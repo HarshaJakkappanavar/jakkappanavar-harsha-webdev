@@ -20,6 +20,7 @@
         vm.getTemplateUrl = getTemplateUrl;
         vm.updateWidget = updateWidget;
         vm.deleteWidget = deleteWidget;
+        vm.goBackToWidgetList = goBackToWidgetList;
 
         init();
 
@@ -58,6 +59,19 @@
                     vm.error = "Could not delete widget.";
                 });
         }
+
+        function goBackToWidgetList() {
+            var currentUrl = $location.url();
+            var urlParts = currentUrl.split("/");
+            if(urlParts[urlParts.length-2] === "new"){
+                deleteWidget();
+            } else{
+                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/"
+                    + vm.pageId + "/widget");
+            }
+
+        }
+
     }
 })();
 
