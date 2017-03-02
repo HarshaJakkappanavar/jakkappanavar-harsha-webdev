@@ -37,15 +37,24 @@
         }
 
         function updateWidget(widget) {
-            WidgetService
-                .updateWidget(vm.widgetId, widget)
-                .success(function () {
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/"
-                        + vm.pageId + "/widget");
-                })
-                .error(function () {
-                    vm.error = "Could not update the widget.";
-                });
+            if(widget.url && widget.width){
+
+                WidgetService
+                    .updateWidget(vm.widgetId, widget)
+                    .success(function () {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/"
+                            + vm.pageId + "/widget");
+                    })
+                    .error(function () {
+                        vm.error = "Could not update the widget.";
+                    });
+            } else {
+                if(!widget.url){
+                    vm.error = "Invalid URL.";
+                }else {
+                    vm.error = "Incorrect fields entered.";
+                }
+            }
         }
 
         function deleteWidget() {

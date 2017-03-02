@@ -33,21 +33,24 @@ module.exports = function (app) {
         var width         = req.body.width;
         var uploadFile    = req.file;
 
-        var filename      = uploadFile.filename;     // new file name in upload folder
-        const fs = require('fs');
+        if(uploadFile) {
+            var filename      = uploadFile.filename;     // new file name in upload folder
 
-        var uploadUrl = "/uploads/" + filename;
-        var redirectURL = "/assignment/#/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/";
+            var uploadUrl = "/uploads/" + filename;
+            var redirectURL = "/assignment/#/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/";
 
-        for(var w in widgets) {
-            if(widgets[w]._id === widgetId){
-                fs.unlink(__dirname +'/../../public/' + widgets[w].url,
-                    function (err) {
-                        widgets[w].url = uploadUrl;
-                    });
+            var widget = getWidgetById(widgetId);
+            if(widget) {
+                widget.width = width;
+                updateImageUrl(widget, uploadUrl);
             }
+            res.redirect(redirectURL);
+        }else {
+            var redirectURL = "/assignment/#/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId;
+            res.redirect(redirectURL);
         }
-        res.redirect(redirectURL);
+
+
     }
 
     function findWidgetsByPageId(req, res) {
@@ -63,14 +66,18 @@ module.exports = function (app) {
 
     function findWidgetById(req, res) {
         var widgetId = req.params.widgetId;
-        var widget = widgets.find(function (w) {
-            return w._id === widgetId;
-        });
+        var widget = getWidgetById(widgetId);
         if(widget != null) {
             res.json(widget);
         } else{
             res.sendStatus(404);
         }
+    }
+
+    function getWidgetById(widgetId){
+        return widgets.find(function (w) {
+            return w._id === widgetId;
+        });
     }
 
     function createWidget(req, res) {
@@ -92,7 +99,7 @@ module.exports = function (app) {
                             break;
 
             case 'IMAGE' :  newWidget.width = "100%";
-                            newWidget.url = "/uploads/thumbnail.png";
+                            newWidget.url = "http://www.baligotours.net/images/thumbnail.png";
                             break;
 
             case 'YOUTUBE' :    newWidget.width = "100%";
@@ -123,7 +130,9 @@ module.exports = function (app) {
                         break;
 
                     case 'IMAGE' :  widgets[w].width = widget.width;
-                        // widgets[w].url = widget.url;
+                        if(widgets[w].url != widget.url){
+                            updateImageUrl(widgets[w], widget.url)
+                        }
                         break;
 
                     case 'YOUTUBE' :    widgets[w].width = widget.width;
@@ -137,6 +146,13 @@ module.exports = function (app) {
         res.sendStatus(404);
     }
 
+    function updateImageUrl(widget, newUrl) {
+        const fs = require('fs');
+        fs.unlink(__dirname +'/../../public/' + widget.url,
+            function (err) {
+                widget.url = newUrl;
+            });
+    }
     function deleteWidget(req, res) {
         var widgetId = req.params.widgetId;
         const fs = require('fs');
