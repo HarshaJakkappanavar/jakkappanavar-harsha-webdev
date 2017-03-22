@@ -6,14 +6,15 @@
         .module("WebAppMaker")
         .factory("WidgetService", widgetService);
 
-    function widgetService($http){
+    function widgetService($http, $rootScope){
 
         var api = {
             "createWidget": createWidget,
             "findWidgetsByPageId": findWidgetsByPageId,
             "findWidgetById": findWidgetById,
             "updateWidget": updateWidget,
-            "deleteWidget": deleteWidget
+            "deleteWidget": deleteWidget,
+            "updateWidgetSort": updateWidgetSort
         };
 
         return api;
@@ -41,6 +42,11 @@
         function deleteWidget(widgetId) {
 
             return $http.delete("/api/widget/" + widgetId);
+        }
+
+        function updateWidgetSort(startPos, endPos) {
+            var pageId = $rootScope.pageId;
+            return $http.put("/page/"+pageId+"/widget?start="+startPos+"&end=" + endPos);
         }
     }
 })();

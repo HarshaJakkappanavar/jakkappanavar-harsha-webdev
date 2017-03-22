@@ -2,7 +2,7 @@
  * Created by harsh on 2/28/2017.
  */
 
-module.exports = function (app) {
+module.exports = function (app, model) {
     app.get("/api/website/:websiteId/page", findPagesByWebsiteId);
     app.get("/api/page/:pageId", findPageById);
     app.post("/api/website/:websiteId/page", createPage);

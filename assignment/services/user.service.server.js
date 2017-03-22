@@ -2,7 +2,7 @@
  * Created by harsh on 2/27/2017.
  */
 
-module.exports = function(app) {
+module.exports = function(app, model) {
     // APIs listed from this service
     app.get("/api/user", findUser);
     app.get("/api/user/:userId", findUserById);

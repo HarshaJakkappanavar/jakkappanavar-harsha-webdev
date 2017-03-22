@@ -2,7 +2,7 @@
  * Created by harsh on 2/28/2017.
  */
 
-module.exports = function (app) {
+module.exports = function (app, model) {
 
     var multer = require('multer'); // npm install multer --save
     var upload = multer({ dest: __dirname+'/../../public/uploads' });
@@ -13,6 +13,8 @@ module.exports = function (app) {
     app.post("/api/page/:pageId/widget", createWidget);
     app.put("/api/widget/:widgetId", updateWidget);
     app.delete("/api/widget/:widgetId", deleteWidget);
+
+    app.put("/page/:pageId/widget", updateWidgetSort);
 
     var widgets = [
         { "_id": "123", "widgetType": "HEADER", "pageId": "321", "size": "2", "text": "GIZMODO"},
@@ -170,5 +172,14 @@ module.exports = function (app) {
             }
         }
         res.sendStatus(404);
+    }
+
+    function updateWidgetSort(req, res) {
+        var pageId = req.params.pageId;
+        var startPos = req.query.start;
+        var endPos = req.query.end;
+
+        model.widgetModel.reorderWidget(pageId, startPos, endPos);
+        res.sendStatus(200);
     }
 };

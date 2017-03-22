@@ -5,6 +5,10 @@
 module.exports = function (app) {
 
     app.post('/api/lectures/movie', createMovie);
+    app.get('/api/lectures/movie', findAllMovies);
+    app.delete('/api/lectures/movie/:movieId', deleteMovie);
+    app.get('/api/lectures/movie/:movieId', findMovieById);
+    app.put('/api/lectures/movie/:movieId', updateMovie);
 
     var mongoose = require('mongoose');
 
@@ -23,7 +27,7 @@ module.exports = function (app) {
             .create(movie)
             .then(
                 function (movie) {
-                    res.sendStatus(200).json(movie);
+                    res.json(movie);
                 },
                 function (error) {
                     res.sendStatus(404);
@@ -32,17 +36,64 @@ module.exports = function (app) {
 
     }
 
+    function findAllMovies(req, res) {
+        MovieModel
+            .find()
+            .then(
+                function (movies) {
+                    res.json(movies);
+                },
+                function (error) {
+                    res.sendStatus(404);
+                }
+            );
+    }
 
-    // MovieModel.create({title: 'The Abyss'});
-    // MovieModel.create({title: 'Terminator'});
+    function deleteMovie(req, res) {
+        var movieId = req.params.movieId;
 
-    var promise = MovieModel.find();
-    promise.then(
-        function (movies) {
-            console.log(movies);
-        },
-        function (error) {
+        MovieModel
+            .remove({_id: movieId})
+            .then(
+                function (movie) {
+                    res.sendStatus(200);
+                },
+                function (error) {
+                    res.sendStatus(404);
+                }
+            );
+    }
 
-        }
-    )
+    function findMovieById(req, res) {
+        var movieId = req.params.movieId;
+        // MovieModel
+        //     .find({_id: movieId});
+        MovieModel
+            .findById({_id: movieId})
+            .then(
+                function (movie) {
+                    res.json(movie);
+                },
+                function (error) {
+                    res.sendStatus(404);
+                }
+            );
+    }
+
+    function updateMovie(req, res) {
+        var movieId = req.params.movieId;
+        var movie = req.body;
+
+        MovieModel
+            .update({_id: movieId}, {$set: {title: movie.title}})
+            .then(
+                function (status) {
+                    res.json(status);
+                },
+                function (error) {
+                    res.sendStatus(404);
+                }
+            );
+    }
+
 };

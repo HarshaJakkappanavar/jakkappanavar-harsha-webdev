@@ -37,7 +37,7 @@
         }
 
         function updateWidget(widget) {
-            if(widget.url && widget.width){
+            if((widget.url && widget.width) || widget.widgetType != "IMAGE"){
 
                 WidgetService
                     .updateWidget(vm.widgetId, widget)

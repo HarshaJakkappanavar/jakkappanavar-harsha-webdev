@@ -2,7 +2,7 @@
  * Created by harsh on 2/28/2017.
  */
 
-module.exports = function (app) {
+module.exports = function (app, model) {
   app.get("/api/user/:userId/website", getWebsitesByUserId);
   app.get("/api/website/:websiteId", getWebsiteByWebsiteId);
   app.post("/api/user/:userId/website", createWebsite);

@@ -8,7 +8,7 @@
         .module("WebAppMaker")
         .controller("WidgetListController", WidgetListController);
 
-    function WidgetListController($sce, $routeParams, WidgetService) {
+    function WidgetListController($sce, $routeParams, WidgetService, $rootScope) {
 
         var vm = this;
 
@@ -22,11 +22,12 @@
         init();
 
         function init() {
+            $rootScope.pageId = vm.pageId;
             WidgetService
                 .findWidgetsByPageId(vm.pageId)
                 .success(function (widgets) {
                     vm.widgets = widgets;
-                })
+                });
         }
 
         function getTrustedHTML(html) {

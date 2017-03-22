@@ -3,9 +3,12 @@
  */
 
 module.exports = function (app) {
+
+    var model = require('./model/models.server');
     // Including all the services and passing them the "app" from one place.
-    require ("./services/user.service.server.js")(app);
-    require ("./services/website.service.server.js")(app);
-    require ("./services/page.service.server.js")(app);
-    require ("./services/widget.service.server.js")(app);
+    // Later sending model along with app
+    require ("./services/user.service.server.js")(app, model);
+    require ("./services/website.service.server.js")(app, model);
+    require ("./services/page.service.server.js")(app, model);
+    require ("./services/widget.service.server.js")(app, model);
 };
