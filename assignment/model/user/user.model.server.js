@@ -53,7 +53,7 @@ function findUserByUsername(username) {
     var deferred = q.defer();
     UserModel
         .findOne({username: username}, function (err, user) {
-            if(err) {
+            if(err || !user) {
                 deferred.reject(err);
             }else {
                 deferred.resolve(user);
@@ -72,7 +72,7 @@ function findUserByCredentials(username, password) {
                 deferred.resolve(user);
             }
         });
-    return deferred.promise();
+    return deferred.promise;
 }
 
 function updateUser(userId, user) {
@@ -82,7 +82,7 @@ function updateUser(userId, user) {
             {
                 firstName: user.firstName,
                 lastName: user.lastName,
-                email: email
+                email: user.email
             },
             function (err, status) {
                 if(err) {

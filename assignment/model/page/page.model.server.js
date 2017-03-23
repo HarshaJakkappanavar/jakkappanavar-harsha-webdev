@@ -95,7 +95,10 @@ function deletePage(pageId) {
                     model.websiteModel
                         .deletePageForWebsite(page._website, pageId)
                         .then(function (website) {
-                            deferred.resolve(website);
+                            PageModel
+                                .remove({_id: pageId}, function (err, status) {
+                                    deferred.resolve(status);
+                                });
                         });
                 });
         });
@@ -120,7 +123,7 @@ function reorderWidgetForPage(pageId, startPos, endPos) {
     PageModel
         .findById(pageId, function(err, page) {
             var pageWidgets = page.widgets;
-            pageWidgets.splice(endPos - 1, 0, pageWidgets.splice(startPos-1, 1)[0]);
+            pageWidgets.splice(endPos, 0, pageWidgets.splice(startPos, 1)[0]);
             page.widgets = pageWidgets;
             page.save(function(err, page) {
                 deferred.resolve(page);

@@ -19,7 +19,7 @@
 
         function createWidget(widgetType) {
             var widget = new Object();
-            widget.widgetType = widgetType;
+            widget.type = widgetType;
             WidgetService
                 .createWidget(vm.pageId, widget)
                 .success(function (widget) {

@@ -42,13 +42,11 @@ function createWidget(pageId, widget){
 
 function findAllWidgetForPage(pageId) {
     var deferred = q.defer();
-    WidgetModel
-        .find({_page: pageId}, function (err, widgets) {
-            if(err) {
-                deferred.reject(err);
-            }else {
-                deferred.resolve(widgets);
-            }
+    model.pageModel
+        .findById(pageId)
+        .populate('widgets')
+        .exec(function (err, page) {
+            deferred.resolve(page.widgets);
         });
     return deferred.promise;
 }
@@ -82,6 +80,7 @@ function updateWidget(widgetId, widget) {
                 case 'IMAGE' :  widgetObj.width = widget.width;
                                 if(widgetObj.url != widget.url){
                                     updateImageUrl(widgetObj, widget.url)
+                                    widgetObj.url = widget.url;
                                 }
                                 break;
 
@@ -111,7 +110,7 @@ function updateImageUrl(widget, newUrl) {
     const fs = require('fs');
     fs.unlink(__dirname +'/../../../public/' + widget.url,
         function (err) {
-            widget.url = newUrl;
+
         });
 }
 
@@ -122,14 +121,17 @@ function deleteWidget(widgetId) {
             model.pageModel
                 .deleteWidgetForPage(widget._page, widgetId)
                 .then(function (page) {
-                    const fs = require('fs');
-                    if(widget.type == 'IMAGE') {
-                        fs.unlink(__dirname +'/../../../public/' + widget.url,
-                            function (err) {
-                                console.log(err);
-                            });
-                    }
-                    deferred.resolve(page);
+                    WidgetModel
+                        .remove({_id: widgetId}, function (err, status) {
+                            const fs = require('fs');
+                            if(widget.type == 'IMAGE') {
+                                fs.unlink(__dirname +'/../../../public/' + widget.url,
+                                    function (err) {
+                                        console.log(err);
+                                    });
+                            }
+                            deferred.resolve(status);
+                        });
                 });
         });
     return deferred.promise;

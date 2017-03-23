@@ -78,30 +78,28 @@ module.exports = function (app, model) {
     function createWidget(req, res) {
         var pageId = req.params.pageId;
         var widget = req.body;
-        var newWidget = new Object();
-        newWidget.widgetType = widget.widgetType;
-        switch (widget.widgetType) {
+        switch (widget.type) {
 
-            case 'HEADER' : newWidget.size = "1";
-                            newWidget.text = "New Header";
+            case 'HEADER' : widget.size = "1";
+                            widget.text = "New Header";
                             break;
 
-            case 'HTML' :   newWidget.text = "New HTML";
+            case 'HTML' :   widget.text = "New HTML";
                             break;
 
-            case 'IMAGE' :  newWidget.width = "100%";
-                            newWidget.url = "http://www.baligotours.net/images/thumbnail.png";
+            case 'IMAGE' :  widget.width = "100%";
+                            widget.url = "http://www.baligotours.net/images/thumbnail.png";
                             break;
 
-            case 'YOUTUBE' :    newWidget.width = "100%";
-                                newWidget.url = "https://www.youtube.com/embed/ScMzIvxBSi4?ecver=1";
+            case 'YOUTUBE' :    widget.width = "100%";
+                                widget.url = "https://www.youtube.com/embed/ScMzIvxBSi4?ecver=1";
                                 break;
 
-            case 'TEXT' :   newWidget.name = "";
-                            newWidget.text = "Text";
-                            newWidget.rows = 1;
-                            newWidget.placeholder = "";
-                            newWidget.formatted = false;
+            case 'TEXT' :   widget.name = "";
+                            widget.text = "Text";
+                            widget.rows = 1;
+                            widget.placeholder = "";
+                            widget.formatted = false;
                             break;
 
             default:
@@ -110,7 +108,7 @@ module.exports = function (app, model) {
 
         }
         model.widgetModel
-            .createWidget(pageId, newWidget)
+            .createWidget(pageId, widget)
             .then(function (widget) {
                 res.json(widget);
             }, function (error) {
@@ -154,7 +152,7 @@ module.exports = function (app, model) {
         var startPos = req.query.start;
         var endPos = req.query.end;
 
-        model.widgetModel.updateWidgetOrder(pageId, startPos, endPos);
+        model.widgetModel.reorderWidget(pageId, startPos, endPos);
         res.sendStatus(200);
     }
 };

@@ -94,7 +94,11 @@ function deleteWebsite(websiteId) {
                   model.userModel
                       .deleteWebsiteForUser(website._user, websiteId)
                       .then(function (user) {
-                          deferred.resolve(user);
+                          WebsiteModel
+                              .remove({_id: websiteId},
+                                  function (err, status) {
+                                      deferred.resolve(status);
+                                    });
                       });
                });
         });
