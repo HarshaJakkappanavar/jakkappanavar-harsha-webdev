@@ -2,58 +2,142 @@
  * Created by harsh on 3/9/2017.
  */
 
-module.exports = function () {
+var q = require('q');
+var mongoose = require('mongoose');
+var UserSchema = require('./user.schema.server');
+var UserModel = mongoose.model('UserModel', UserSchema);
+var model = '';
 
-    var mongoose = require('mongoose');
-    var UserSchema = require('./user.schema.server')();
-    var UserModel = mongoose.model('UserModel', UserSchema);
-    var model = '';
+UserModel.setModel = setModel;
+UserModel.createUser = createUser;
+UserModel.findUserById = findUserById;
+UserModel.findUserByUsername = findUserByUsername;
+UserModel.findUserByCredentials = findUserByCredentials;
+UserModel.updateUser = updateUser;
+UserModel.deleteUser = deleteUser;
+UserModel.addWebsiteToUser = addWebsiteToUser;
+UserModel.deleteWebsiteForUser = deleteWebsiteForUser;
+module.exports = UserModel;
 
-    var api = {
+function setModel(_model) {
+    model = _model;
+}
 
-        setModel: setModel,
-        createUser: createUser,
-        findUserById: findUserById,
-        findUserByUsername: findUserByUsername,
-        findUserByCredentials: findUserByCredentials,
-        updateUser: updateUser,
-        deleteUser: deleteUser
-    };
+function createUser(user) {
+    var deferred = q.defer();
+    UserModel
+        .create(user, function (err, user) {
+            if(err) {
+                deferred.reject(err);
+            }else {
+                deferred.resolve(user);
+            }
+        });
+    return deferred.promise;
+}
 
-    return api;
+function findUserById(userId) {
+    var deferred = q.defer();
+    UserModel
+        .findById(userId, function (err, user) {
+            if(err) {
+                deferred.reject(err);
+            }else {
+                deferred.resolve(user);
+            }
+        });
+    return deferred.promise;
+}
 
-    function setModel(_model) {
-        model = _model;
-    }
+function findUserByUsername(username) {
+    var deferred = q.defer();
+    UserModel
+        .findOne({username: username}, function (err, user) {
+            if(err) {
+                deferred.reject(err);
+            }else {
+                deferred.resolve(user);
+            }
+        });
+    return deferred.promise;
+}
 
-    function createUser(user) {
-        return UserModel.create(user);
-    }
+function findUserByCredentials(username, password) {
+    var deferred = q.defer();
+    UserModel
+        .findOne({username: username, password: password}, function (err, user) {
+            if(err) {
+                deferred.reject(err);
+            }else {
+                deferred.resolve(user);
+            }
+        });
+    return deferred.promise();
+}
 
-    function findUserById(userId) {
-        return UserModel.findById({_id: userId});
-    }
-
-    function findUserByUsername(username) {
-        return UserModel.find({username: username});
-    }
-
-    function findUserByCredentials(username, password) {
-        return UserModel.findOne({username: username, password: password});
-    }
-
-    function updateUser(userId, user) {
-        return UserModel
-            .update({_id: userId},
-                {
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    email: email
+function updateUser(userId, user) {
+    var deferred = q.defer();
+    UserModel
+        .update({_id: userId},
+            {
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: email
+            },
+            function (err, status) {
+                if(err) {
+                    deferred.reject(err);
+                }else {
+                    findUserById(userId)
+                        .then(function (user) {
+                            deferred.resolve(user);
+                        });
                 }
-            );
-    }
+            });
+    return deferred.promise;
+}
 
-    function deleteUser(userId) {
-        return UserModel.remove({_id: userId})
-    }
-};
+function deleteUser(userId) {
+    var deferred = q.defer();
+    model.websiteModel
+        .deleteWebsitesForUser(userId)
+        .then(function (status) {
+            UserModel
+                .remove({_id: userId}, function (err, status) {
+                    if(err) {
+                        deferred.reject(err);
+                    }else {
+                        deferred.resolve(status);
+                    }
+                });
+        });
+    return deferred.promise;
+}
+
+function addWebsiteToUser(userId, websiteId) {
+    var deferred = q.defer();
+    findUserById(userId)
+        .then(function (user) {
+           user.websites.push(websiteId);
+           user.save(function (err, user) {
+              deferred.resolve(user);
+           });
+        });
+    return deferred.promise;
+}
+
+function deleteWebsiteForUser(userId, websiteId){
+    var deferred = q.defer();
+    UserModel
+        .update({_id: userId},
+            {$pull: {websites: websiteId}},
+            function (err, user) {
+                if(err) {
+                    deferred.reject(err);
+                }else {
+                    deferred.resolve(user);
+                }
+            });
+    return deferred.promise;
+}
+
