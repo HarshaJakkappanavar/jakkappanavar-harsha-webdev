@@ -96,6 +96,14 @@ module.exports = function (app, model) {
             case 'YOUTUBE' :    newWidget.width = "100%";
                                 newWidget.url = "https://www.youtube.com/embed/ScMzIvxBSi4?ecver=1";
                                 break;
+
+            case 'TEXT' :   newWidget.name = "";
+                            newWidget.text = "Text";
+                            newWidget.rows = 1;
+                            newWidget.placeholder = "";
+                            newWidget.formatted = false;
+                            break;
+
             default:
                 res.sendStatus(404);
                 return;

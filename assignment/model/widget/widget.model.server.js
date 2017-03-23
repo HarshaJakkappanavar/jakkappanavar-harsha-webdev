@@ -70,7 +70,7 @@ function updateWidget(widgetId, widget) {
     var deferred = q.defer();
     findWidgetById(widgetId)
         .then(function (widgetObj) {
-            switch (widgetObj.widgetType) {
+            switch (widgetObj.type) {
 
                 case 'HEADER' : widgetObj.size = widget.size;
                                 widgetObj.text = widget.text;
@@ -88,6 +88,13 @@ function updateWidget(widgetId, widget) {
                 case 'YOUTUBE' :    widgetObj.width = widget.width;
                                     widgetObj.url = widget.url;
                                     break;
+
+                case 'TEXT' :   widgetObj.name = widget.name;
+                                widgetObj.text = widget.text;
+                                widgetObj.rows = widget.rows;
+                                widgetObj.placeholder = widget.placeholder;
+                                widgetObj.formatted = widget.formatted;
+                                break;
             }
             widgetObj.save(function (err, widgetObj) {
                 if(err) {
@@ -116,7 +123,7 @@ function deleteWidget(widgetId) {
                 .deleteWidgetForPage(widget._page, widgetId)
                 .then(function (page) {
                     const fs = require('fs');
-                    if(widget.widgetType == 'IMAGE') {
+                    if(widget.type == 'IMAGE') {
                         fs.unlink(__dirname +'/../../../public/' + widget.url,
                             function (err) {
                                 console.log(err);
@@ -144,13 +151,3 @@ function deleteWidgetsForPage(pageId) {
 function reorderWidget(pageId, startPos, endPos) {
     return model.pageModel.reorderWidgetForPage(pageId, startPos, endPos);
 }
-
-//    TODO the implemetation for api attribute functions.
-/*
- * createWidget
- * findAllWidgetForPage
- * findWidgetById
- * updateWidget
- * deleteWidget
- * reorderWidget
- * */
