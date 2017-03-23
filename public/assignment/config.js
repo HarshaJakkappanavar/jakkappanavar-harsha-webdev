@@ -15,98 +15,85 @@
         var pageViews = 'views/page/template/';
         var widgetViews = 'views/widget/template/';
 
-        /*
-        * Name of the view
-        * */
-        var loginView = 'login.view.client.html';
-        var registerView = 'register.view.client.html';
-        var profileView = 'profile.view.client.html';
-        var websiteListView  = 'website-list.view.client.html';
-        var websiteNewView = 'website-new.view.client.html';
-        var websiteEditView = 'website-edit.view.client.html';
-        var pageListView = 'page-list.view.client.html';
-        var pageNewView = 'page-new.view.client.html';
-        var pageEditView = 'page-edit.view.client.html';
-        var widgetListView = 'widget-list.view.client.html';
-        var widgetChooserView = 'widget-chooser.view.client.html';
-        /*Not sure about this page below for now...*/
-        var widgetEditView = 'widget-edit.view.client.html';
-
-
         $routeProvider
             .when("/login", {
-                templateUrl: userViews + loginView,
+                templateUrl: userViews + 'login.view.client.html',
                 controller: "LoginController",
                 controllerAs: "model"
             })
             .when("/", {
-                templateUrl: userViews + loginView,
+                templateUrl: userViews + 'login.view.client.html',
                 controller: "LoginController",
                 controllerAs: "model"
             })
             .when("default", {
-                templateUrl: userViews + loginView,
+                templateUrl: userViews + 'login.view.client.html',
                 controller: "LoginController",
                 controllerAs: "model"
             })
             .when("/register", {
-                templateUrl: userViews + registerView,
+                templateUrl: userViews + 'register.view.client.html',
                 controller: "RegisterController",
                 controllerAs: "model"
             })
             .when("/user/:uid", {
-                templateUrl: userViews + profileView,
+                templateUrl: userViews + 'profile.view.client.html',
                 controller: "ProfileController",
                 controllerAs: "model"
             })
             .when("/user/:uid/website", {
-                templateUrl: websiteViews + websiteListView,
+                templateUrl: websiteViews + 'website-list.view.client.html',
                 controller: "WebsiteListController",
                 controllerAs: "model"
             })
             .when("/user/:uid/website/new", {
-                templateUrl: websiteViews + websiteNewView,
+                templateUrl: websiteViews + 'website-new.view.client.html',
                 controller: "WebsiteNewController",
                 controllerAs: "model"
             })
             .when("/user/:uid/website/:wid", {
-                templateUrl: websiteViews + websiteEditView,
+                templateUrl: websiteViews + 'website-edit.view.client.html',
                 controller: "WebsiteEditController",
                 controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page", {
-                templateUrl: pageViews + pageListView,
+                templateUrl: pageViews + 'page-list.view.client.html',
                 controller: "PageListController",
                 controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page/new", {
-                templateUrl: pageViews + pageNewView,
+                templateUrl: pageViews + 'page-new.view.client.html',
                 controller: "PageNewController",
                 controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page/:pid", {
-                templateUrl: pageViews + pageEditView,
+                templateUrl: pageViews + 'page-edit.view.client.html',
                 controller: "PageEditController",
                 controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page/:pid/widget", {
-                templateUrl: widgetViews + widgetListView,
+                templateUrl: widgetViews + 'widget-list.view.client.html',
                 controller: "WidgetListController",
                 controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page/:pid/widget/new", {
-                templateUrl: widgetViews + widgetChooserView,
+                templateUrl: widgetViews + 'widget-chooser.view.client.html',
                 controller: "WidgetNewController",
                 controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page/:pid/widget/:wgid", {
-                templateUrl: widgetViews + widgetEditView,
+                templateUrl: widgetViews + 'widget-edit.view.client.html',
                 controller: "WidgetEditController",
                 controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page/:pid/widget/new/:wgid", {
-                templateUrl: widgetViews + widgetEditView,
+                templateUrl: widgetViews + 'widget-edit.view.client.html',
                 controller: "WidgetEditController",
+                controllerAs: "model"
+            })
+            .when("/user/:uid/website/:wid/page/:pid/widget/new/:wgid/flickr", {
+                templateUrl: widgetViews + 'widget-flickr-search.view.client.html',
+                controller: "FlickrImageSearchController",
                 controllerAs: "model"
             })
 

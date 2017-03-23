@@ -110,7 +110,7 @@ function updateImageUrl(widget, newUrl) {
     const fs = require('fs');
     fs.unlink(__dirname +'/../../../public/' + widget.url,
         function (err) {
-
+            console.log(err);
         });
 }
 
