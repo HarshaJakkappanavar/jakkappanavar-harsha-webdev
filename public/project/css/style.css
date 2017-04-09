@@ -2,11 +2,6 @@ input, textarea, select{
     margin-bottom: 5px !important;
 }
 
-body {
-    padding-top: 65px;
-    padding-bottom: 65px;
-}
-
 .wbdv-left-pane {
     position: absolute;
     top: 0px;
@@ -79,10 +74,17 @@ a:hover {
 }
 
 .angular-google-map-container {
-    /*height: 500px; */
+    /*height: 600px;*/
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+.eventEditor {
+    position: absolute;
+    top: 10%;
+    left: 15px;
+    z-index:1;
 }

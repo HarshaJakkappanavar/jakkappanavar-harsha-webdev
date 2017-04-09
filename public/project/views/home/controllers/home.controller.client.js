@@ -6,14 +6,13 @@
         .module("TreasureHuntApp")
         .controller("HomeController", HomeController);
 
-    function HomeController($scope, uiGmapGoogleMapApi) {
+    function HomeController(uiGmapGoogleMapApi) {
 
         var vm = this;
 
         function init() {
+            vm.map = { center: { latitude: 42.34, longitude: -71.09 }, zoom: 12 };
 
-
-            $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
             uiGmapGoogleMapApi.then(function(maps) {
 
                 /*var options = {
@@ -21,22 +20,13 @@
                 };
 
                 navigator.geolocation.getCurrentPosition(function(pos) {
-
-                    $scope.map = {
-                        center:
-                            {
-                                latitude: pos.coords.latitude,
-                                longitude: pos.coords.longitude
-                            },
-                        zoom:8
-                    };
-                 },
-                 function(error) {
-                 alert('Unable to get location: ' + error.message);
-                 }, options);
-                 $scope.markers = [];
-                 $scope.locations = [];*/
-                $scope.maps = maps;
+                        vm.position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+                        vm.map = { center: { latitude: pos.coords.latitude, longitude: pos.coords.longitude }, zoom: 8 };
+                        console.log(JSON.stringify(vm.position));
+                    },
+                    function(error) {
+                        alert('Unable to get location: ' + error.message);
+                    }, options);*/
             });
         }
         init();
