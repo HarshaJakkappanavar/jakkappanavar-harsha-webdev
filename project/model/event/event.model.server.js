@@ -10,9 +10,23 @@ var EventModel = mongoose.model('EventModel', EventSchema);
 var model = '';
 
 EventModel.setModel = setModel;
+UserModel.findEventsForUser = findEventsForUser;
 module.exports = EventModel;
 
 function setModel(_model) {
     model = _model;
+}
+
+function findEventsForUser(userId) {
+    var deferred = q.defer();
+    EventModel
+        .find({organizer: userId}, function (err, websites) {
+            if(err) {
+                deferred.reject(err);
+            }else {
+                deferred.resolve(websites);
+            }
+        });
+    return deferred.promise;
 }
 

@@ -5,10 +5,10 @@
 var mongoose = require('mongoose');
 
 var EventSchema = mongoose.Schema({
-    eventName: String,
-    eventDesc: String,
-    eventDay: Date,
-    eventLocation: {type: mongoose.Schema.Types.ObjectId, ref: 'LocationModel'},
+    name: String,
+    desc: String,
+    day: Date,
+    location: {type: mongoose.Schema.Types.ObjectId, ref: 'LocationModel'},
     checkpoints: [{type: mongoose.Schema.Types.ObjectId, ref: 'CheckpointModel'}],
     organizer: {type: mongoose.Schema.Types.ObjectId, ref: 'UserModel'},
     teams: [{type: mongoose.Schema.Types.ObjectId, ref: 'TeamModel'}],

@@ -25,6 +25,16 @@
                 controller: "HomeController",
                 controllerAs: "model"
             })
+            .when("/organizer", {
+                templateUrl: "views/user/template/organizer.view.client.html",
+                controller: "OrganizerController",
+                controllerAs: "model"
+            })
+            .when("/participant", {
+                templateUrl: "views/user/template/participant.view.client.html",
+                controller: "ParticipantController",
+                controllerAs: "model"
+            })
     }
 
     function configureGMapApi(uiGmapGoogleMapApiProvider) {
