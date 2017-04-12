@@ -4,7 +4,8 @@
 
 module.exports = function (app, model) {
     // APIs listed from this service
-    app.get("/api/project/user/" + userId + "/event", findEventsForUser);
+    app.get("/project/services/api/user/:userId/event", findEventsForUser);
+    app.post("/project/services/api/user/:userId/event", createEvent);
 
     function findEventsForUser(req, res) {
         var userId = req.params['userId'];
@@ -16,5 +17,22 @@ module.exports = function (app, model) {
                 function (error) {
                     res.sendStatus(404);
                 });
+    }
+
+    function createEvent(req, res) {
+        var userId = req.params['userId'];
+        var event = req.body;
+        model.LocationModel
+            .createLocation(event.location)
+            .then(function (location) {
+                event.location = location._id;
+                model.EventModel
+                    .createEventForOrganizer(userId, event)
+                    .then(function () {
+                        res.sendStatus(200);
+                    }, function () {
+                        res.sendStatus(404);
+                    });
+            })
     }
 };

@@ -25,14 +25,34 @@
                 controller: "HomeController",
                 controllerAs: "model"
             })
-            .when("/organizer", {
-                templateUrl: "views/user/template/organizer.view.client.html",
-                controller: "OrganizerController",
-                controllerAs: "model"
-            })
-            .when("/participant", {
+            .when("/participant/:userId", {
                 templateUrl: "views/user/template/participant.view.client.html",
                 controller: "ParticipantController",
+                controllerAs: "model"
+            })
+            .when("/organizer/:userId/event", {
+                templateUrl: "views/user/template/organizer-event-list.view.client.html",
+                controller: "OrganizerEventListController",
+                controllerAs: "model"
+            })
+            .when("/organizer/:userId/event/new", {
+                templateUrl: "views/user/template/organizer-event-new.view.client.html",
+                controller: "OrganizerNewEventController",
+                controllerAs: "model"
+            })
+            .when("/organizer/:userId/event/:eventId/team", {
+                templateUrl: "views/team/organizer/template/team-list.view.client.html",
+                controller: "OrganizerTeamListController",
+                controllerAs: "model"
+            })
+            .when("/organizer/:userId/event/:eventId/checkpoint", {
+                templateUrl: "views/checkpoint/organizer/template/checkpoint-list.view.client.html",
+                controller: "OrganizerCheckpointListController",
+                controllerAs: "model"
+            })
+            .when("/organizer/:userId/event/:eventId/checkpoint/new", {
+                templateUrl: "views/checkpoint/organizer/template/checkpoint-new.view.client.html",
+                controller: "OrganizerCheckpointNewController",
                 controllerAs: "model"
             })
     }

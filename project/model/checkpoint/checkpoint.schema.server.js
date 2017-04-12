@@ -6,8 +6,9 @@ var mongoose = require('mongoose');
 
 var CheckpointSchema = mongoose.Schema({
     _event: {type: mongoose.Schema.Types.ObjectId, ref: 'EventModel'},
-    checkpointName: String,
+    name: String,
     question: String,
+    place: String,
     location: {type: mongoose.Schema.Types.ObjectId, ref: 'LocationModel'},
     teams: {type: mongoose.Schema.Types.ObjectId, ref: 'TeamModel'},
     dateCreated: {type: Date, default: Date.now}

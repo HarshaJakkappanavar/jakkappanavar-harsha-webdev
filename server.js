@@ -28,6 +28,8 @@ require ("./test/app.js")(app);
 var customServer = require ("./assignment/app.js");
 customServer(app);
 
+require("./project/app.js")(app);
+
 // require("./lectures/mongo/movies.js")(app);
 // require("./lectures/passportjs/services/user.service.server");
 

@@ -9,13 +9,18 @@
     function EventService($http) {
 
         var api = {
-            findEventsForUser: findEventsForUser
+            findEventsForUser: findEventsForUser,
+            createEvent: createEvent
         }
 
         return api;
 
         function findEventsForUser(userId) {
-            return $http.get("/api/project/user/" + userId + "/event");
+            return $http.get("/project/services/api/user/" + userId + "/event");
+        }
+
+        function createEvent(userId, event) {
+            return $http.post("/project/services/api/user/" + userId + "/event", event);
         }
     }
 })();

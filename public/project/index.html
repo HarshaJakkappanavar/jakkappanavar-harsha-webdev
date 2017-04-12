@@ -7,35 +7,49 @@
     <link rel="stylesheet" href="css/textAngular.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="js/textAngular-rangy.min.js"></script>
     <script src="js/textAngular.min.js"></script>
     <script src="js/textAngular-sanitize.min.js"></script>
     <script src="js/lodash.js"></script>
     <script src="js/angular-simple-logger.js"></script>
     <script src="js/angular-google-maps.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 
     <script src="app.js"></script>
     <script src="config.js"></script>
 
     <!-- directives-->
+    <script src="directive/googlelocation.js"></script>
+    <script src="directive/wbdv-sortable.js"></script>
 
     <!-- home controllers-->
     <script src="views/home/controllers/home.controller.client.js"></script>
     <!-- user controllers-->
-    <script src="views/user/controllers/organizer.controller.client.html.js"></script>
+    <script src="views/user/controllers/organizer-event-list.controller.client.js"></script>
+    <script src="views/user/controllers/organizer-new-event.controller.client.js"></script>
+    <!--team controllers-->
+    <script src="views/team/organizer/controllers/team-list.controller.client.js"></script>
+    <!--checkpoint controllers-->
+    <script src="views/checkpoint/organizer/controllers/checkpoint-list.controller.client.js"></script>
+    <script src="views/checkpoint/organizer/controllers/checkpoint-new.controller.client.js"></script>
 
     <!-- services-->
     <script src="services/event.service.client.js"></script>
     <script src="services/user.service.client.js"></script>
+    <script src="services/checkpoint.service.client.js"></script>
+    <script src="services/team.service.client.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta charset="UTF-8">
     <title>Treasure hunt</title>
 </head>
 <body>
-    <div ng-view></div>
+    <div ng-controller="HomeController">
+        <div ng-view></div>
+    </div>
 </body>
 </html>

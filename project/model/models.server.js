@@ -2,7 +2,7 @@
  * Created by harsh on 4/8/2017.
  */
 
-var UserModel = require('./user/user.model.server');
+var ProjectUserModel = require('./user/user.model.server');
 var EventModel = require('./event/event.model.server');
 var CheckpointModel = require('./checkpoint/checkpoint.model.server');
 var TeamModel = require('./team/team.model.server');
@@ -10,7 +10,7 @@ var MemberModel = require('./member/member.model.server');
 var LocationModel = require('./location/location.model.server');
 
 var model = {
-    UserModel: UserModel,
+    ProjectUserModel: ProjectUserModel,
     EventModel: EventModel,
     CheckpointModel: CheckpointModel,
     TeamModel: TeamModel,
@@ -18,7 +18,7 @@ var model = {
     LocationModel: LocationModel
 };
 
-UserModel.setModel(model);
+ProjectUserModel.setModel(model);
 EventModel.setModel(model);
 CheckpointModel.setModel(model);
 TeamModel.setModel(model);

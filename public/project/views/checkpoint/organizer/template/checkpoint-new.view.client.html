@@ -7,17 +7,17 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="navbar-text pull-left">
-                                <a href="#/organizer/{{model.userId}}/event">
+                                <a href="#/organizer/{{model.userId}}/event/{{model.eventId}}/checkpoint">
                                     <span class="fa fa-arrow-left"></span>
                                 </a>
                             </div>
                             <div class="navbar-text pull-right">
-                                <a ng-click="model.createEvent(event)">
+                                <a ng-click="model.createCheckpoint(checkpoint)">
                                     <span class="fa fa-check"></span>
                                 </a>
                             </div>
                             <div class="navbar-header">
-                                <a class="navbar-brand">New Event</a>
+                                <a class="navbar-brand">New Checkpoint</a>
                             </div>
                         </div>
                     </div>
@@ -26,23 +26,18 @@
                     <div ng-show="model.error" class="alert alert-danger">
                         {{model.error}}
                     </div>
-                    <label for="name">Event Name</label>
-                    <input ng-model="event.name"
+                    <label for="name">Name</label>
+                    <input ng-model="checkpoint.name"
                            type="text" id="name"
                            placeholder="Name" class="form-control"/>
 
-                    <label for="desc">Event Description</label>
-                    <div text-angular id="desc" ng-model="event.desc"
+                    <label for="desc">Riddle</label>
+                    <div text-angular id="desc" ng-model="checkpoint.question"
                          ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
                                         ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
                                         ['indent','outdent'],['html']]"></div>
 
-                    <label for="day">Event Day</label>
-                    <input ng-model="event.day"
-                           type="date" id="day"
-                           class="form-control"/>
-
-                    <label for="location">Event Place</label>
+                    <label for="location">Place</label>
                     <div class="row">
                         <div class="col-xs-10">
                             <input ng-model="event.place" googlelocation

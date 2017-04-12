@@ -6,22 +6,38 @@ var q = require('q');
 var mongoose = require('mongoose');
 mongoose.Promise = q.Promise;
 var UserSchema = require('./user.schema.server');
-var UserModel = mongoose.model('UserModel', UserSchema);
+var ProjectUserModel = mongoose.model('ProjectUserModel', UserSchema);
 var model = '';
 
-UserModel.setModel = setModel;
-UserModel.findUserByUsername = findUserByUsername;
-UserModel.findUserByCredentials = findUserByCredentials;
-UserModel.createUser = createUser;
-module.exports = UserModel;
+ProjectUserModel.setModel = setModel;
+ProjectUserModel.findUserById = findUserById;
+ProjectUserModel.findUserByUsername = findUserByUsername;
+ProjectUserModel.findUserByCredentials = findUserByCredentials;
+ProjectUserModel.createUser = createUser;
+ProjectUserModel.addEventToUser = addEventToUser;
+module.exports = ProjectUserModel;
 
 function setModel(_model) {
     model = _model;
 }
 
+function findUserById(userId) {
+    var deferred = q.defer();
+    ProjectUserModel
+        .findById(userId, function (err, user) {
+            if(err) {
+                deferred.reject(err);
+            }else {
+                deferred.resolve(user);
+            }
+        });
+    return deferred.promise;
+}
+
+
 function findUserByUsername(username) {
     var deferred = q.defer();
-    UserModel
+    ProjectUserModel
         .findOne({username: username}, function (err, user) {
             if(err || !user) {
                 deferred.reject(err);
@@ -34,7 +50,7 @@ function findUserByUsername(username) {
 
 function findUserByCredentials(username, password) {
     var deferred = q.defer();
-    UserModel
+    ProjectUserModel
         .findOne({username: username, password: password}, function (err, user) {
             if(err) {
                 deferred.reject(err);
@@ -47,13 +63,25 @@ function findUserByCredentials(username, password) {
 
 function createUser(user) {
     var deferred = q.defer();
-    UserModel
+    ProjectUserModel
         .create(user, function (err, user) {
             if(err) {
                 deferred.reject(err);
             }else {
                 deferred.resolve(user);
             }
+        });
+    return deferred.promise;
+}
+
+function addEventToUser(userId, eventId) {
+    var deferred = q.defer();
+    findUserById(userId)
+        .then(function (user) {
+            user.events.push(eventId);
+            user.save(function (err, user) {
+                deferred.resolve(user);
+            });
         });
     return deferred.promise;
 }

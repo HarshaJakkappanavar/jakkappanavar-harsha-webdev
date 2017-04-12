@@ -9,9 +9,11 @@ var EventSchema = mongoose.Schema({
     desc: String,
     day: Date,
     location: {type: mongoose.Schema.Types.ObjectId, ref: 'LocationModel'},
+    place: String,
     checkpoints: [{type: mongoose.Schema.Types.ObjectId, ref: 'CheckpointModel'}],
     organizer: {type: mongoose.Schema.Types.ObjectId, ref: 'UserModel'},
     teams: [{type: mongoose.Schema.Types.ObjectId, ref: 'TeamModel'}],
+    formatted: Boolean,
     dateCreated: {type: Date, default: Date.now}
 }, {collection: 'project.model.event'});
 

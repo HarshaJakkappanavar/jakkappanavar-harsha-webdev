@@ -5,8 +5,8 @@
 var mongoose = require('mongoose');
 
 var LocationSchema = mongoose.Schema({
-    lat: String,
-    long: String,
+    latitude: Number,
+    longitude: Number,
     dateCreated: {type: Date, default: Date.now}
 }, {collection: 'project.model.location'});
 

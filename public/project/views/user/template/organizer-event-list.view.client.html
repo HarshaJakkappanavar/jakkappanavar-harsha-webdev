@@ -1,0 +1,50 @@
+<ng-include src="'views/home/template/home.view.client.html'"></ng-include>
+<div class="container-fluid">
+    <div class="row organizerContainer">
+        <div class="col-xs-12 col-sm-6 organizerScreen">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-xs-10 col-sm-6">
+                            <div class="navbar-header">
+                                <a class="navbar-brand">Event Name</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 hidden-xs">
+                            <div class="navbar-header">
+                                <a class="navbar-brand">Day</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-xs-2">
+                            <div class="navbar-text pull-right">
+                                <a href="#/organizer/{{model.userId}}/event/new">
+                                    <span class="fa fa-plus pull-right"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li ng-repeat="event in model.events" class="list-group-item">
+                    <div class="row">
+                        <div class="col-xs-8 col-sm-6">
+                            <a>{{event.name}}</a>
+                        </div>
+                        <div class="col-sm-2 hidden-xs">
+                            {{event.day | date}}
+                        </div>
+                        <div class="col-xs-2">
+                            <a href="#/organizer/{{model.userId}}/event/{{event._id}}/team">
+                                <span class="fa fa-users pull-right"></span>
+                            </a>
+                        </div>
+                        <div class="col-xs-2">
+                            <a href="#/organizer/{{model.userId}}/event/{{event._id}}/checkpoint">
+                                <span class="fa fa-flag-checkered pull-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

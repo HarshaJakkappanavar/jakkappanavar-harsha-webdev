@@ -13,4 +13,4 @@ module.exports = function (app) {
     require("./services/member.service.server")(app, model);
     require("./services/location.service.server")(app, model);
 
-}
+};

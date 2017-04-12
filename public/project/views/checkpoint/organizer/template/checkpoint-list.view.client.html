@@ -1,0 +1,54 @@
+<ng-include src="'views/home/template/home.view.client.html'"></ng-include>
+<div class="container-fluid">
+    <div class="row organizerContainer">
+        <div class="col-xs-12 col-sm-6 organizerScreen">
+            <ul class="list-group" wbdv-sortable="">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-xs-10 col-sm-9">
+                            <div class="navbar-text pull-left">
+                                <a href="#/organizer/{{model.userId}}/event">
+                                    <span class="fa fa-arrow-left"></span>
+                                </a>
+                            </div>
+                            <div class="navbar-header">
+                                <a class="navbar-brand">Checkpoint Name</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-xs-2">
+                            <div class="navbar-text pull-right">
+                                <a href="#/organizer/{{model.userId}}/event/{{model.eventId}}/checkpoint/new">
+                                    <span class="fa fa-plus"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li ng-repeat="checkpoint in model.checkpoints" class="list-group-item">
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <!--TODO on click of the event, should show info regarding the event and options to edit checkpoints and teams-->
+                            <a ng-click="model.showCheckpoint(checkpoint)">{{checkpoint.name}}</a>
+                        </div>
+                        <div class="col-xs-2 jga-toolbar">
+                            <a href="#/organizer/{{model.userId}}/event/{{event._id}}/checkpoint/{{checkpoint._id}}">
+                                <span class="fa fa-pencil-square-o pull-right"></span>
+                                <span class="fa fa-align-justify pull-left"></span>
+                            </a>
+                        </div>
+
+                    </div>
+                </li>
+                <li ng-show="checkpoints.length==0" class="list-group-item">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="navbar-header">
+                                <a class="navbar-brand">No checkpoints found.</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

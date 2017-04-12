@@ -6,37 +6,45 @@
         .module("TreasureHuntApp")
         .controller("HomeController", HomeController);
 
-    function HomeController(uiGmapGoogleMapApi, UserService) {
+    function HomeController($rootScope, $location, uiGmapGoogleMapApi, UserService) {
 
         var vm = this;
 
         vm.login = login;
         vm.register = register;
 
+        $rootScope.login = vm.login;
+        $rootScope.register = vm.register;
+
         init();
 
         function init() {
-            vm.map = { center: { latitude: 42.34, longitude: -71.09 }, zoom: 12 };
+            $rootScope.map = { center: { latitude: 42.34, longitude: -71.09 }, zoom: 12 };
+            vm.map = $rootScope.map;
 
             uiGmapGoogleMapApi.then(function(maps) {
-
+                $rootScope.maps = maps;
             });
         }
 
-        function login(username, password){
+        function login(user){
 
-            if(username == null || password == null) {
+            if(user.username == null || user.password == null) {
                 vm.error = "Please enter username and password.";
                 return;
             }
 
-            var promise = UserService.findUserByCredentials(username, password);
+            var promise = UserService.findUserByCredentials(user);
             promise
                 .success(function (user) {
 
                     var loginUser = user;
                     if( loginUser != null){
-                        $location.url("/user/" + loginUser._id);
+                        if(loginUser.userType == 'organizer'){
+                            $location.url("/organizer/" + loginUser._id + "/event");
+                        }else if (loginUser.userType == 'participant'){
+                            $location.url("/participant/" + loginUser._id);
+                        }
                     } else {
                         vm.error="The username or password is incorrect.";
                     }
@@ -68,7 +76,7 @@
                             .success(function (user) {
                                 if(user != null) {
                                     if(user.userType == 'organizer'){
-                                        $location.url("/organizer/" + user._id);
+                                        $location.url("/organizer/" + user._id + "/event");
                                     }else if (user.userType == 'participant'){
                                         $location.url("/participant/" + user._id);
                                     }

@@ -1,0 +1,48 @@
+<ng-include src="'views/home/template/home.view.client.html'"></ng-include>
+<div class="container-fluid">
+    <div class="row organizerContainer">
+        <div class="col-xs-12 col-sm-6 organizerScreen">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-xs-10 col-sm-6">
+                            <div class="navbar-text pull-left">
+                                <a href="#/organizer/{{model.userId}}/event">
+                                    <span class="fa fa-arrow-left"></span>
+                                </a>
+                            </div>
+                            <div class="navbar-header">
+                                <a class="navbar-brand">Team Name</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 hidden-xs">
+                            <div class="navbar-header">
+                                <a class="navbar-brand">Size</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li ng-repeat="team in model.teams" class="list-group-item">
+                    <div class="row">
+                        <div class="col-xs-8 col-sm-6">
+                            <!--TODO on click of the event, should show info regarding the event and options to edit checkpoints and teams-->
+                            <a ng-click="model.showTeam(team)">{{team.name}}</a>
+                        </div>
+                        <div class="col-sm-2 hidden-xs">
+                            {{team.members.size}}
+                        </div>
+                    </div>
+                </li>
+                <li ng-show="!teams.length" class="list-group-item">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="navbar-header">
+                                <a class="navbar-brand">No teams found.</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

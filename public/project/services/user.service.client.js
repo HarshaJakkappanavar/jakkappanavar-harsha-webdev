@@ -16,16 +16,16 @@
 
         return api;
 
-        function findUserByCredentials(username, password) {
-            return $http.get("/api/project/user?username=" + username + "&password=" + password);
+        function findUserByCredentials(user) {
+            return $http.post("/project/services/api/user/login", user);
         }
 
         function findUserByUsername(username) {
-            return $http.get("/api/project/user?username=" + username);
+            return $http.get("/project/services/api/user?username=" + username);
         }
 
         function createUser(user) {
-            return $http.post("/api/project/user", user);
+            return $http.post("/project/services/api/user", user);
         }
     }
 })();
