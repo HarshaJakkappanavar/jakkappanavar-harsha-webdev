@@ -9,13 +9,13 @@
     function TeamService($http) {
 
         var api = {
-            findTeamsForEvent: findTeamsForEvent
+            findTeamsForEvent: findTeamsForEvent,
         }
 
         return api;
 
         function findTeamsForEvent(eventId) {
-            return $http.get("/project/services/api/event/" + eventId + "/team");
+            return $http.get("/project/services/api/event/" + eventId + "/teams");
         }
     }
 })();

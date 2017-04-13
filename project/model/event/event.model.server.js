@@ -15,6 +15,7 @@ EventModel.findEventsForUser = findEventsForUser;
 EventModel.createEventForOrganizer = createEventForOrganizer;
 EventModel.addCheckpointToEvent = addCheckpointToEvent;
 EventModel.reorderCheckpointForEvent = reorderCheckpointForEvent;
+EventModel.getAllEvents = getAllEvents;
 module.exports = EventModel;
 
 function setModel(_model) {
@@ -39,11 +40,11 @@ function findEventsForUser(userId) {
     EventModel
         .find({organizer: userId})
         .populate('location')
-        .exec(function (err, websites) {
+        .exec(function (err, events) {
             if(err) {
                 deferred.reject(err);
             }else {
-                deferred.resolve(websites);
+                deferred.resolve(events);
             }
         });
     return deferred.promise;
@@ -90,6 +91,21 @@ function reorderCheckpointForEvent(eventId, startPos, endPos) {
             event.save(function(err, event) {
                 deferred.resolve(event);
             });
+        });
+    return deferred.promise;
+}
+
+function getAllEvents() {
+    var deferred = q.defer();
+    EventModel
+        .find()
+        .populate('location')
+        .exec(function (err, events) {
+            if(err) {
+                deferred.reject(err);
+            }else {
+                deferred.resolve(events);
+            }
         });
     return deferred.promise;
 }

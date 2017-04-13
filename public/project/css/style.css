@@ -105,6 +105,22 @@ html, body {
     opacity: 0.85;
 }
 
+.actTemplate {
+    box-shadow: 0 0 13px rgb(115, 118, 119);
+    /* padding: 3px 0px 3px 3px; */
+    /* margin: 5px 1px 3px 0px; */
+    border: 3px solid rgb(178, 182, 183);
+}
+
+.participantContainer {
+    top: 40px;
+    left: 130px;
+    opacity: 0.85;
+    position: absolute;
+    display: inline;
+}
+
+
 /*Login and Register*/
 
 

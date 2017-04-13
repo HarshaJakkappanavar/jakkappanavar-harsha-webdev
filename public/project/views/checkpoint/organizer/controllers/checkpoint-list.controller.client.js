@@ -6,10 +6,11 @@
         .module("TreasureHuntApp")
         .controller("OrganizerCheckpointListController", OrganizerCheckpointListController);
 
-    function OrganizerCheckpointListController($routeParams, $location, uiGmapGoogleMapApi, $rootScope, CheckpointService) {
+    function OrganizerCheckpointListController($routeParams, currentUser, $location, uiGmapGoogleMapApi, $rootScope, CheckpointService) {
         var vm = this;
 
-        vm.userId = $routeParams.userId;
+        vm.user = currentUser;
+        vm.userId = currentUser._id;
         vm.eventId = $routeParams.eventId;
         $rootScope.eventId = vm.eventId;
         vm.showCheckpoint = showCheckpoint;
@@ -20,6 +21,7 @@
             vm.map = $rootScope.map;
             vm.login = $rootScope.login;
             vm.register = $rootScope.register;
+            vm.logout = $rootScope.logout;
 
             CheckpointService
                 .findCheckpointsForEvent(vm.eventId)

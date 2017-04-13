@@ -6,10 +6,11 @@
         .module("TreasureHuntApp")
         .controller("OrganizerCheckpointNewController", OrganizerCheckpointNewController);
 
-    function OrganizerCheckpointNewController($routeParams, $location, uiGmapGoogleMapApi, $rootScope, CheckpointService) {
+    function OrganizerCheckpointNewController($routeParams, currentUser, $location, uiGmapGoogleMapApi, $rootScope, CheckpointService) {
         var vm = this;
 
-        vm.userId = $routeParams.userId;
+        vm.user = currentUser;
+        vm.userId = currentUser._id;
         vm.eventId = $routeParams.eventId;
         vm.createCheckpoint = createCheckpoint;
         vm.updateMapCenter = updateMapCenter;
@@ -20,6 +21,7 @@
             vm.map = $rootScope.map;
             vm.login = $rootScope.login;
             vm.register = $rootScope.register;
+            vm.logout = $rootScope.logout;
         }
 
         function createCheckpoint(checkpoint) {
@@ -28,7 +30,7 @@
             CheckpointService
                 .createCheckpoint(vm.eventId, checkpoint)
                 .success(function () {
-                    $location.url("/organizer/" + vm.userId + "/event/" + vm.eventId + "/checkpoint");
+                    $location.url("/organizer/event/" + vm.eventId + "/checkpoints");
                 })
                 .error(function () {
                     vm.error = "Could not create the new checkpoint";

@@ -22,9 +22,14 @@
                         <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                         <span id="eventSearchStatus" class="sr-only">(success)</span>
                     </div>
-                    <ul class="form-group nav navbar-nav navbar-right">
+                    <ul ng-if="!model.user" class="form-group nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="modal" data-target="#login"><b>Sign In/Sign Up</b></a>
+                        </li>
+                    </ul>
+                    <ul ng-if="model.user" class="form-group nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a ng-click="model.logout()"><b>Logout</b></a>
                         </li>
                     </ul>
                 </div>
@@ -45,7 +50,7 @@
 </div>
 
 <!--Login and Register modal pop up-->
-<div class="modal" id="login" role="dialog">
+<div class="modal fade" id="login" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="login-wrap">
@@ -66,9 +71,15 @@
                                 <input ng-model="loginUser.password" id="loginPassword" type="password" class="input" data-type="password">
                             </div>
                             <div class="group">
-                                <input ng-click="model.login(loginUser)"
+                                <input id="signinSubmit" ng-click="model.login(loginUser)"
                                        type="submit" class="button" value="Sign In"
                                        data-toggle="modal" data-target="#login">
+                            </div>
+                            <div class="group">
+                                <a href="/project/services/api/auth/google" class="button btn">
+                                    <span class="fa fa-google-plus"></span>
+                                    Google
+                                </a>
                             </div>
                         </div>
                         <div class="sign-up-htm">
@@ -116,7 +127,7 @@
                                 <input ng-model="user.phone" id="signupPhone" type="text" class="input">
                             </div>
                             <div class="group">
-                                <input ng-click="model.register(user)" type="submit" class="button" value="Sign Up">
+                                <input id="signupSubmit" ng-click="model.register(user)" type="submit" class="button" value="Sign Up">
                             </div>
                         </div>
                     </div>

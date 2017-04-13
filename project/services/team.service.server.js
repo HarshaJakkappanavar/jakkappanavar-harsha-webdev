@@ -4,7 +4,7 @@
 
 module.exports = function (app, model) {
 
-    app.get("/project/services/api/event/:eventId/team", findTeamsForEvent);
+    app.get("/project/services/api/event/:eventId/teams", findTeamsForEvent);
 
     function findTeamsForEvent(req, res) {
         var eventId = req.params['eventId'];

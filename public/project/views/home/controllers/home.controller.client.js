@@ -12,14 +12,16 @@
 
         vm.login = login;
         vm.register = register;
+        vm.logout = logout;
 
         $rootScope.login = vm.login;
         $rootScope.register = vm.register;
+        $rootScope.logout = vm.logout;
 
         init();
 
         function init() {
-            $rootScope.map = { center: { latitude: 42.34, longitude: -71.09 }, zoom: 12 };
+            $rootScope.map = { center: { latitude: 42.34, longitude: -71.09 }, zoom: 14 };
             vm.map = $rootScope.map;
 
             uiGmapGoogleMapApi.then(function(maps) {
@@ -38,13 +40,16 @@
             promise
                 .success(function (user) {
 
+                    $rootScope.sessionUser = user;
+
                     var loginUser = user;
                     if( loginUser != null){
-                        if(loginUser.userType == 'organizer'){
-                            $location.url("/organizer/" + loginUser._id + "/event");
+                        /*if(loginUser.userType == 'organizer'){
+                            $location.url("/organizer/events");
                         }else if (loginUser.userType == 'participant'){
                             $location.url("/participant/" + loginUser._id);
-                        }
+                        }*/
+                        $location.url("/profile");
                     } else {
                         vm.error="The username or password is incorrect.";
                     }
@@ -75,11 +80,12 @@
                             .createUser(user)
                             .success(function (user) {
                                 if(user != null) {
-                                    if(user.userType == 'organizer'){
-                                        $location.url("/organizer/" + user._id + "/event");
+                                   /* if(user.userType == 'organizer'){
+                                        $location.url("/organizer/events");
                                     }else if (user.userType == 'participant'){
                                         $location.url("/participant/" + user._id);
-                                    }
+                                    }*/
+                                    $location.url("/profile");
                                 }
                             })
                             .error(function (err) {
@@ -87,6 +93,14 @@
                             });
                     });
             }
+        }
+
+        function logout(){
+            UserService
+                .logout()
+                .then(function () {
+                    $location.url('/home');
+                });
         }
     }
 })();

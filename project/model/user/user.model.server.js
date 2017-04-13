@@ -15,6 +15,9 @@ ProjectUserModel.findUserByUsername = findUserByUsername;
 ProjectUserModel.findUserByCredentials = findUserByCredentials;
 ProjectUserModel.createUser = createUser;
 ProjectUserModel.addEventToUser = addEventToUser;
+ProjectUserModel.findUserByGoogleId = findUserByGoogleId;
+ProjectUserModel.updateUser = updateUser;
+ProjectUserModel.findEventsForUser = findEventsForUser;
 module.exports = ProjectUserModel;
 
 function setModel(_model) {
@@ -82,6 +85,41 @@ function addEventToUser(userId, eventId) {
             user.save(function (err, user) {
                 deferred.resolve(user);
             });
+        });
+    return deferred.promise;
+}
+
+function findUserByGoogleId(googleId) {
+    return ProjectUserModel.findOne({'google.id': googleId});
+}
+
+function updateUser(userId, user) {
+    var deferred = q.defer();
+    ProjectUserModel
+        .update({_id: userId}, {$set: user})
+        .then(function () {
+            findUserById(userId)
+                .then(function (user) {
+                    deferred.resolve(user);
+                });
+        });
+    return deferred.promise;
+}
+
+function findEventsForUser(userId) {
+    var deferred = q.defer();
+    ProjectUserModel
+        .findById(userId)
+        .populate({
+            path: 'events',
+            model: 'EventModel',
+            populate: {
+                path: 'location',
+                model: 'LocationModel'
+            }
+        })
+        .exec(function (err, user) {
+            deferred.resolve(user.events);
         });
     return deferred.promise;
 }

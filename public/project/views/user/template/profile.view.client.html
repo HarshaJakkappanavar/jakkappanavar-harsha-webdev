@@ -1,0 +1,38 @@
+<ng-include src="'views/home/template/home.view.client.html'"></ng-include>
+<div class="container-fluid">
+    <div class="row organizerContainer">
+        <div class="col-xs-12 col-sm-6 organizerScreen">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="navbar-header">
+                                <a class="navbar-brand">What is your role?</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row form-group desc-body">
+                        <div class="col-xs-2">
+                        </div>
+                        <div class="col-xs-3 form-group">
+                            <label ng-click="model.setUserType('organizer')" class="btn btn-block btn-default button-wrapper radio-inline optionRadioLabel">
+                                <input style="display:none;" class="optionInput" type="radio" name="user-role-option" id="inlineRadio1" value="organizer"> Organizer
+                            </label>
+                        </div>
+                        <div class="col-xs-2">
+                        </div>
+                        <div class="col-xs-3 form-group">
+                            <label ng-click="model.setUserType('participant')" class="btn btn-block btn-default button-wrapper radio-inline optionRadioLabel">
+                                <input style="display:none;" class="optionInput" type="radio" name="user-role-option" id="inlineRadio2" value="participant"> Participant
+                            </label>
+                        </div>
+                        <div class="col-xs-2">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

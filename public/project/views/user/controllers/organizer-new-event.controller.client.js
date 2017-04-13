@@ -6,34 +6,55 @@
         .module("TreasureHuntApp")
         .controller("OrganizerNewEventController", OrganizerNewEventController);
 
-    function OrganizerNewEventController($routeParams, $rootScope, EventService, $location) {
+    function OrganizerNewEventController(currentUser, $rootScope, EventService, $location) {
         var vm = this;
 
-        vm.userId = $routeParams.userId;
+        vm.user = currentUser;
+        vm.userId = currentUser._id;
         vm.createEvent = createEvent;
         vm.updateMapCenter = updateMapCenter;
-
-        vm.map = $rootScope.map;
 
         init();
         function init(){
             vm.map = $rootScope.map;
             vm.login = $rootScope.login;
             vm.register = $rootScope.register;
+            vm.logout = $rootScope.logout;
         }
 
         function createEvent(event) {
             var pos = getPosition($rootScope.gLocation);
             event.location = pos;
+            event.marker = setMarker(event);
             EventService
-                .createEvent(vm.userId, event)
+                .createEvent(currentUser._id, event)
                 .success(function () {
-                    $location.url("/organizer/" + vm.userId + "/event");
+                    $location.url("/organizer/events");
                 })
                 .error(function () {
                     vm.error = "Could not create the new event";
                 });
 
+        }
+
+        function setMarker(event) {
+            return {
+                latitude: event.location.latitude,
+                longitude: event.location.longitude,
+                title: populateEventTitle(event),
+                icon:'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                options: {
+                    labelClass:'marker_labels',
+                    labelAnchor:'12 60',
+                    labelContent:'<label style="background-color: black; color: white; opacity: 0.85; padding: 2px;">' + event.name +'</label>'
+                }
+            }
+        }
+
+        function populateEventTitle(event) {
+            var title = '<h2>' + event.name + '</h2>';
+            title += event.desc;
+            return title;
         }
 
         function getPosition(gLocation) {

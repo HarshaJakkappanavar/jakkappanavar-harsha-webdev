@@ -14,6 +14,17 @@ var EventSchema = mongoose.Schema({
     organizer: {type: mongoose.Schema.Types.ObjectId, ref: 'UserModel'},
     teams: [{type: mongoose.Schema.Types.ObjectId, ref: 'TeamModel'}],
     formatted: Boolean,
+    marker: {
+        latitude: Number,
+        longitude: Number,
+        title: String,
+        icon: String,
+        options: {
+            labelClass: String,
+            labelAnchor: String,
+            labelContent: String
+        }
+    },
     dateCreated: {type: Date, default: Date.now}
 }, {collection: 'project.model.event'});
 

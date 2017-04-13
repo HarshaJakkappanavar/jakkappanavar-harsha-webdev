@@ -17,7 +17,7 @@
 
             element.sortable({
                 axis: "y",
-                handle: ".glyphicon-align-justify",
+                handle: ".fa-align-justify",
                 start: function (event, ui) {
                     startPos = ui.item.index();
                 },

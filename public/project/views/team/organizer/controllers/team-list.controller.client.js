@@ -6,10 +6,11 @@
         .module("TreasureHuntApp")
         .controller("OrganizerTeamListController", OrganizerTeamListController);
 
-    function OrganizerTeamListController($routeParams, $location, uiGmapGoogleMapApi, $rootScope, TeamService) {
+    function OrganizerTeamListController($routeParams, currentUser, $location, uiGmapGoogleMapApi, $rootScope, TeamService) {
         var vm = this;
 
-        vm.userId = $routeParams.userId;
+        vm.user = currentUser;
+        vm.userId = currentUser._id;
         vm.eventId = $routeParams.eventId;
         vm.showTeam = showTeam;
 
@@ -19,6 +20,7 @@
             vm.map = $rootScope.map;
             vm.login = $rootScope.login;
             vm.register = $rootScope.register;
+            vm.logout = $rootScope.logout;
 
             TeamService
                 .findTeamsForEvent(vm.eventId)

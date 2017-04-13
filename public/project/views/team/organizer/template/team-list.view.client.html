@@ -7,7 +7,7 @@
                     <div class="row">
                         <div class="col-xs-10 col-sm-6">
                             <div class="navbar-text pull-left">
-                                <a href="#/organizer/{{model.userId}}/event">
+                                <a href="#/organizer/events">
                                     <span class="fa fa-arrow-left"></span>
                                 </a>
                             </div>
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </li>
-                <li ng-show="!teams.length" class="list-group-item">
+                <li ng-show="model.teams.length == 0" class="list-group-item">
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="navbar-header">

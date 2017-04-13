@@ -10,7 +10,9 @@
 
         var api = {
             findEventsForUser: findEventsForUser,
-            createEvent: createEvent
+            createEvent: createEvent,
+            getAllEvents: getAllEvents,
+            registerByTeamName: registerByTeamName
         }
 
         return api;
@@ -21,6 +23,14 @@
 
         function createEvent(userId, event) {
             return $http.post("/project/services/api/user/" + userId + "/event", event);
+        }
+
+        function getAllEvents() {
+            return $http.get("/project/services/api/events");
+        }
+
+        function registerByTeamName(userId, eventId, teamName) {
+            return $http.post("/project/services/api/user/" + userId + "/event/" + eventId + "/register/team", {teamName: teamName});
         }
     }
 })();
