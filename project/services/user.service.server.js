@@ -117,13 +117,13 @@ module.exports = function (app, model) {
     }
 
     var googleConfig = {
-        /*clientID     : process.env.GOOGLE_CLIENT_ID_SPRING_2017,
+        clientID     : process.env.GOOGLE_CLIENT_ID_SPRING_2017,
         clientSecret : process.env.GOOGLE_CLIENT_SECRET_SPRING_2017,
-        callbackURL  : process.env.GOOGLE_CALLBACK_URL_SPRING_2017*/
+        callbackURL  : process.env.GOOGLE_CALLBACK_URL_SPRING_2017
 
-        clientID     : "137462954550-7p97patiui91n0npeq9ls4ooss8c04ki.apps.googleusercontent.com",
+        /*clientID     : "137462954550-7p97patiui91n0npeq9ls4ooss8c04ki.apps.googleusercontent.com",
         clientSecret : "7NIkhbzv4pIYLZJ6ElKUB1wn",
-        callbackURL  : "http://127.0.0.1:3000/google/oauth/callback"
+        callbackURL  : "http://127.0.0.1:3000/google/oauth/callback"*/
     };
 
     passport.use(new GoogleStrategy(googleConfig, googleStrategy));
