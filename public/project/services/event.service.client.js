@@ -12,7 +12,7 @@
             findEventsForUser: findEventsForUser,
             createEvent: createEvent,
             getAllEvents: getAllEvents,
-            registerByTeamName: registerByTeamName
+            registerByTeam: registerByTeam
         }
 
         return api;
@@ -29,8 +29,8 @@
             return $http.get("/project/services/api/events");
         }
 
-        function registerByTeamName(userId, eventId, teamName) {
-            return $http.post("/project/services/api/user/" + userId + "/event/" + eventId + "/register/team", {teamName: teamName});
+        function registerByTeam(userId, eventId, team) {
+            return $http.post("/project/services/api/user/" + userId + "/event/" + eventId + "/register/team", team);
         }
     }
 })();

@@ -1,0 +1,15 @@
+<ng-include src="'views/home/template/home.view.client.html'"></ng-include>
+<div class="container-fluid">
+    <div class="participantContainer">
+        <ul class="pagination pagination-sm actTemplate">
+            <li role="presentation">
+                <a href="#/participant/events" class="smpleTmpltOptn" id="allEventsContainer">
+                    <span class="fa fa-arrow-left"></span>
+                </a>
+            </li>
+            <li role="presentation"><a ng-click="model.showTeamMarkers()" class="smpleTmpltOptn" id="myEventsContainer" >Team</a></li>
+            <li role="presentation"><a ng-click="model.showMyMarker()" class="smpleTmpltOptn" id="myEventsContainer" >Only Me</a></li>
+            <li role="presentation"><a ng-click="model.checkReached()" class="smpleTmpltOptn" id="myEventsContainer" >Am I here</a></li>
+        </ul>
+    </div>
+</div>

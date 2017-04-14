@@ -5,6 +5,8 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/textAngular.css">
+    <link rel="stylesheet" href="css/map-icons.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
@@ -18,9 +20,12 @@
     <script src="js/lodash.js"></script>
     <script src="js/angular-simple-logger.js"></script>
     <script src="js/angular-google-maps.js"></script>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry,places&sensor=false"></script>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script src="js/home.jquery.client.js"></script>
+    <script src="js/map-icons.js"></script>
+    <script src="js/ngGeolocation.js"></script>
+
 
     <script src="app.js"></script>
     <script src="config.js"></script>
@@ -40,6 +45,7 @@
     <script src="views/user/controllers/participant-event-new.controller.client.js"></script>
     <!--team controllers-->
     <script src="views/team/organizer/controllers/team-list.controller.client.js"></script>
+    <script src="views/team/participant/controllers/participant-event-start.controller.client.js"></script>
     <!--checkpoint controllers-->
     <script src="views/checkpoint/organizer/controllers/checkpoint-list.controller.client.js"></script>
     <script src="views/checkpoint/organizer/controllers/checkpoint-new.controller.client.js"></script>
@@ -49,6 +55,7 @@
     <script src="services/user.service.client.js"></script>
     <script src="services/checkpoint.service.client.js"></script>
     <script src="services/team.service.client.js"></script>
+    <script src="services/member.service.client.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta charset="UTF-8">

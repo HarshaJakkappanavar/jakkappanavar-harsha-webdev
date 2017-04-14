@@ -7,7 +7,7 @@ module.exports = function (app, model) {
     app.get("/project/services/api/user/:userId/event", findEventsForUser);
     app.post("/project/services/api/user/:userId/event", createEvent);
     app.get("/project/services/api/events", getAllEvents);
-    app.post("/project/services/api/user/:userId/event/:eventId/register/team", registerByTeamName);
+    app.post("/project/services/api/user/:userId/event/:eventId/register/team", registerByTeam);
 
     function findEventsForUser(req, res) {
         var userId = req.params['userId'];
@@ -49,17 +49,17 @@ module.exports = function (app, model) {
                 });
     }
 
-    function registerByTeamName(req, res) {
+    function registerByTeam(req, res) {
         var userId = req.params.userId;
         var eventId = req.params.eventId;
         var team = req.body;
-        teamName = team.teamName
+        teamName = team.name;
 
         model.ProjectUserModel
             .addEventToUser(userId, eventId)
             .then(function (user) {
                 model.TeamModel
-                    .findTeamByName(teamName)
+                    .findTeamByName(teamName, eventId)
                     .then(function (team){
                         if(team) {
                             model.MemberModel
@@ -71,6 +71,8 @@ module.exports = function (app, model) {
                                 .then(function (team) {
                                     model.MemberModel
                                         .createMember(team._id, userId);
+                                    model.EventModel
+                                        .addTeamToEvent(eventId, team._id);
                                     res.sendStatus(200);
                                 })
                         }

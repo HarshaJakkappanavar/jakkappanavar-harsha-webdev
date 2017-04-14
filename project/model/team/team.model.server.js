@@ -14,6 +14,8 @@ TeamModel.findTeamsForEvent = findTeamsForEvent;
 TeamModel.addMemberToTeam = addMemberToTeam;
 TeamModel.createTeam = createTeam;
 TeamModel.findTeamByName = findTeamByName;
+TeamModel.findTeamById = findTeamById;
+TeamModel.addCheckpointToTeam = addCheckpointToTeam;
 module.exports = TeamModel;
 
 function setModel(_model) {
@@ -29,7 +31,7 @@ function findTeamsForEvent(eventId) {
             model: 'MemberModel',
             populate: {
                 path: 'participant',
-                model: 'UserModel'
+                model: 'ProjectUserModel'
             }
         })
         .exec(function (err, teams) {
@@ -75,11 +77,61 @@ function createTeam(eventId, teamName) {
     return deferred.promise;
 }
 
-function findTeamByName(teamName) {
+function findTeamByName(teamName, eventId) {
     var deferred = q.defer();
     model.TeamModel
-        .findOne({name: teamName}, function (err, team) {
+        .findOne({name: teamName, _event: eventId}, function (err, team) {
             deferred.resolve(team);
         })
+    return deferred.promise;
+}
+
+function findTeamById(teamId) {
+    var deferred = q.defer();
+    model.TeamModel
+        .findById(teamId)
+        .populate({
+            path: 'members',
+            model: 'MemberModel',
+            populate: {
+                path: 'participant',
+                model: 'ProjectUserModel'
+            }
+        })
+        .populate({
+            path: 'members',
+            model: 'MemberModel',
+            populate: {
+                path: 'locations',
+                model: 'LocationModel'
+            }
+        })
+        .populate({
+            path: 'checkpoints',
+            model: 'CheckpointModel',
+            populate: {
+                path: 'location',
+                model: 'LocationModel'
+            }
+        })
+        .exec(function (err, team) {
+            if(err) {
+                deferred.reject(err);
+            }else {
+                deferred.resolve(team);
+            }
+        });
+    return deferred.promise;
+}
+
+function addCheckpointToTeam(teamId, checkpointId) {
+    var deferred = q.defer();
+    TeamModel
+        .findById(teamId, function (err, team) {
+            team.checkpoints.push(checkpointId);
+            team.save(function (err, team) {
+                deferred.resolve(team);
+            });
+        });
     return deferred.promise;
 }

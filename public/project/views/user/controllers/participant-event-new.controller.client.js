@@ -32,14 +32,18 @@
                 .findTeamsForEvent(vm.eventId)
                 .success(function (teams) {
                     vm.teams = teams;
+                    vm.members = [];
+                    for(var t in teams) {
+                        vm.members = vm.members.concat(teams[t].members);
+                    }
                 });
         }
 
-        function registerByTeamName(teamName) {
+        function registerByTeamName(team) {
             EventService
-                .registerByTeamName(vm.userId, vm.eventId, teamName)
+                .registerByTeam(vm.userId, vm.eventId, team)
                 .success(function () {
-                    $location.url("/participatn/events")
+                    $location.url("/participant/events")
                 })
                 .error(function (err) {
                     vm.error = "Could not register to the event."

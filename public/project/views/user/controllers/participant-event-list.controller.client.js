@@ -58,9 +58,9 @@
                         };
                         marker.icon = setMarkerIcon(myEvents[e].day);
                         if(isToday(myEvents[e].day)){
-                            marker.title += '<a class="btn btn-success">Start</a>'
+                            marker.title += '<a href="#/participant/event/' + myEvents[e]._id + '/start" class="btn btn-success btn-block">Start</a>'
                         }
-                        marker.title += '<a class="btn btn-danger">Unregister</a>';
+                        marker.title += '<a class="btn btn-danger btn-block">Unregister</a>';
                         markers.push(marker);
                         vm.myMarkers.push(marker);
                     }

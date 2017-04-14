@@ -11,6 +11,7 @@ var model = '';
 
 MemberModel.setModel = setModel;
 MemberModel.createMember = createMember;
+MemberModel.addLocationToMember = addLocationToMember;
 module.exports = MemberModel;
 
 function setModel(_model) {
@@ -32,5 +33,18 @@ function createMember(teamId, userId) {
             }
         });
 
+    return deferred.promise;
+}
+
+function addLocationToMember(memberId, locationId) {
+    var deferred = q.defer();
+    MemberModel
+        .findById(memberId)
+        .then(function (member) {
+            member.locations.push(locationId);
+            member.save(function (err, member) {
+                deferred.resolve(member);
+            });
+        });
     return deferred.promise;
 }

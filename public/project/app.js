@@ -4,5 +4,5 @@
 
 (function (){
     angular
-        .module("TreasureHuntApp", ["ngRoute", "uiGmapgoogle-maps", "textAngular", "wbdvDirectives", 'ngAnimate', 'ui.bootstrap']);
+        .module("TreasureHuntApp", ["ngRoute", "uiGmapgoogle-maps", "textAngular", "wbdvDirectives", 'ngAnimate', 'ui.bootstrap', 'ngGeolocation']);
 })();

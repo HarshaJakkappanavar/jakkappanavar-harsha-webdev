@@ -57,6 +57,14 @@
                     currentUser: checkParticipant
                 }
             })
+            .when("/participant/event/:eventId/start", {
+                templateUrl: "views/team/participant/template/participant-event-start.view.client.html",
+                controller: "ParticipantEventStartController",
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkParticipant
+                }
+            })
             .when("/organizer/events", {
                 templateUrl: "views/user/template/organizer-event-list.view.client.html",
                 controller: "OrganizerEventListController",

@@ -44,6 +44,7 @@
                         }
                     };
                     marker.icon = setMarkerIcon(events[e].day);
+                    marker.map_icon_label = '<span class="map-icon map-icon-point-of-interest"></span>';
                 }else{
                     /*
                     * TODO This code is supposed to be cleaned up after clearing the database
