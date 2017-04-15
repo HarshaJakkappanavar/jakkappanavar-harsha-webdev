@@ -27,6 +27,12 @@
             uiGmapGoogleMapApi.then(function(maps) {
                 $rootScope.maps = maps;
             });
+
+            EventService
+                .getAllEvents()
+                .success(function (events) {
+                    vm.markerSet = getMarkers(events);
+                });
         }
 
         function login(user){
@@ -101,6 +107,56 @@
                 .then(function () {
                     $location.url('/home');
                 });
+        }
+
+        function getMarkers(events) {
+            var markers = [];
+            for(var e in events) {
+                if(isActive(events[e].day)) {
+                    var marker = events[e].marker;
+                    if(marker){
+                        marker.id = events[e]._id;
+                        marker.events = {
+                            click:function (marker, eventName, args) {
+                                console.log("Something")
+                                vm.show = !vm.show;
+                            }
+                        };
+                        marker.icon = setMarkerIcon(events[e].day);
+                        marker.title +=
+                            '<div class="container-fluid">' +
+                            '<a href="#/participant/event/'+events[e]._id+'/register" ' +
+                            '       class="btn btn-primary">Register</a>' +
+                            '</div>';
+                        markers.push(marker);
+                    }
+                }
+            }
+            return markers;
+        }
+
+        function setMarkerIcon(eventDay) {
+            var today = new Date();
+            eventDay = new Date(eventDay);
+            today.setHours(0,0,0,0);
+            eventDay.setHours(0,0,0,0);
+            if(today.toDateString() == eventDay.toDateString()) {
+                return 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+            }else if(today < eventDay) {
+                return 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+            }else {
+                return 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
+            }
+        }
+
+        function isActive(eventDay) {
+            var today = new Date();
+            eventDay = new Date(eventDay);
+            today.setHours(0,0,0,0);
+            eventDay.setHours(0,0,0,0);
+
+            return today.getTime() <= eventDay.getTime();
+
         }
     }
 })();

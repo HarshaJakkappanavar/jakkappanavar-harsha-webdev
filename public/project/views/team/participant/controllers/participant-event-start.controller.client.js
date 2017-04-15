@@ -167,14 +167,12 @@
                     var nextCheckpoint = vm.allCheckpoints[vm.team.checkpoints.length];
                     var distance = vm.maps.geometry.spherical
                                     .computeDistanceBetween(new vm.maps.LatLng(nextCheckpoint.location.latitude, nextCheckpoint.location.longitude),
-                                        new vm.maps.LatLng(position.coords.latitude, position.coords.longitude))
+                                        new vm.maps.LatLng(position.coords.latitude, position.coords.longitude));
                     if(distance <= 100) {
                         TeamService
-                            .addCheckpointToTeam(vm.team._id, nextCheckpoint._id)
-                            .then(function () {
-                                initGeoLocation();
-                            });
+                            .addCheckpointToTeam(vm.team._id, nextCheckpoint._id);
                     }
+                    initGeoLocation();
                 }
                 console.log(vm.team);
                 console.log(vm.allCheckpoints);
