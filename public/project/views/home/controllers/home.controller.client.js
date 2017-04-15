@@ -6,7 +6,7 @@
         .module("TreasureHuntApp")
         .controller("HomeController", HomeController);
 
-    function HomeController($rootScope, $location, uiGmapGoogleMapApi, UserService) {
+    function HomeController($rootScope, $location, uiGmapGoogleMapApi, UserService, EventService) {
 
         var vm = this;
 
