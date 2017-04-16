@@ -34,6 +34,22 @@ function findTeamsForEvent(eventId) {
                 model: 'ProjectUserModel'
             }
         })
+        .populate({
+            path: 'members',
+            model: 'MemberModel',
+            populate: {
+                path: 'locations',
+                model: 'LocationModel'
+            }
+        })
+        .populate({
+            path: 'checkpoints',
+            model: 'CheckpointModel',
+            populate: {
+                path: 'location',
+                model: 'LocationModel'
+            }
+        })
         .exec(function (err, teams) {
             if(err) {
                 deferred.reject(err);

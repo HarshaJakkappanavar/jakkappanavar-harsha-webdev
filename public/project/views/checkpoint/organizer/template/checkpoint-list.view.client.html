@@ -1,54 +1,66 @@
 <ng-include src="'views/home/template/home.view.client.html'"></ng-include>
 <div class="container-fluid">
+    <div class="participantContainer">
+        <ul class="pagination pagination-sm actTemplate">
+            <li role="presentation">
+                <a class="smpleWindowToggle active"
+                   data-toggle="collapse" data-target="#collapseExample">
+                    Show/Hide Checkpoints Dashboard
+                </a>
+            </li>
+        </ul>
+    </div>
     <div class="row organizerContainer">
         <div class="col-xs-12 col-sm-6 organizerScreen">
-            <ul class="list-group" wbdv-sortable="">
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-xs-10 col-sm-9">
-                            <div class="navbar-text pull-left">
-                                <a href="#/organizer/events">
-                                    <span class="fa fa-arrow-left"></span>
+            <div class="collapse in" id="collapseExample">
+                <ul class="list-group" wbdv-sortable="">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-10 col-sm-9">
+                                <div class="navbar-text pull-left">
+                                    <a href="#/organizer/events">
+                                        <span class="fa fa-arrow-left"></span>
+                                    </a>
+                                </div>
+                                <div class="navbar-header">
+                                    <a class="navbar-brand">Checkpoint Name</a>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 col-xs-2">
+                                <div class="navbar-text pull-right">
+                                    <a href="#/organizer/event/{{model.eventId}}/checkpoint/new">
+                                        <span class="fa fa-plus"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li ng-repeat="checkpoint in model.checkpoints" class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <!--TODO on click of the event, should show info regarding the event and options to edit checkpoints and teams-->
+                                <a ng-click="model.showCheckpoint(checkpoint)">{{checkpoint.name}}</a>
+                            </div>
+                            <div class="col-xs-2 jga-toolbar">
+                                <a href="#/organizer/event/{{model.eventId}}/checkpoint/{{checkpoint._id}}">
+                                    <span class="fa fa-pencil-square-o pull-right"></span>
                                 </a>
+                                <span class="fa fa-align-justify pull-left"></span>
                             </div>
-                            <div class="navbar-header">
-                                <a class="navbar-brand">Checkpoint Name</a>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 col-xs-2">
-                            <div class="navbar-text pull-right">
-                                <a href="#/organizer/event/{{model.eventId}}/checkpoint/new">
-                                    <span class="fa fa-plus"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li ng-repeat="checkpoint in model.checkpoints" class="list-group-item">
-                    <div class="row">
-                        <div class="col-xs-8">
-                            <!--TODO on click of the event, should show info regarding the event and options to edit checkpoints and teams-->
-                            <a ng-click="model.showCheckpoint(checkpoint)">{{checkpoint.name}}</a>
-                        </div>
-                        <div class="col-xs-2 jga-toolbar">
-                            <a href="#/organizer/event/{{model.eventId}}/checkpoint/{{checkpoint._id}}">
-                                <span class="fa fa-pencil-square-o pull-right"></span>
-                            </a>
-                            <span class="fa fa-align-justify pull-left"></span>
-                        </div>
 
-                    </div>
-                </li>
-                <li ng-show="checkpoints.length==0" class="list-group-item">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="navbar-header">
-                                <a class="navbar-brand">No checkpoints found.</a>
+                        </div>
+                    </li>
+                    <li ng-show="model.checkpoints.length==0" class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="navbar-header">
+                                    <a class="navbar-brand">No checkpoints found.</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-            </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

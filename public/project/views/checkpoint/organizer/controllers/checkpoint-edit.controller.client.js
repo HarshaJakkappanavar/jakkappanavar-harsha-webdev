@@ -14,7 +14,7 @@
         vm.eventId = $routeParams.eventId;
         vm.checkpointId = $routeParams.checkpointId;
         vm.updateCheckpoint = updateCheckpoint;
-        // vm.deleteCheckpoint = deleteCheckpoint;
+        vm.deleteCheckpoint = deleteCheckpoint;
         vm.updateMapCenter = updateMapCenter;
 
         init();
@@ -30,6 +30,10 @@
                 .success(function (checkpoint) {
                     vm.checkpoint = checkpoint;
                 })
+        }
+
+        function deleteCheckpoint(checkpointId) {
+
         }
 
         function updateCheckpoint(checkpoint) {

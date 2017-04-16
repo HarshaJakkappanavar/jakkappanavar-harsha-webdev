@@ -1,57 +1,69 @@
 <ng-include src="'views/home/template/home.view.client.html'"></ng-include>
 <div class="container-fluid">
+    <div class="participantContainer">
+        <ul class="pagination pagination-sm actTemplate">
+            <li role="presentation">
+                <a class="smpleWindowToggle active"
+                   data-toggle="collapse" data-target="#collapseExample">
+                    Show/Hide Checkpoints Dashboard
+                </a>
+            </li>
+        </ul>
+    </div>
     <div class="row organizerContainer">
         <div class="col-xs-12 col-sm-6 organizerScreen">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="navbar-text pull-left">
-                                <a href="#/organizer/event/{{model.eventId}}/checkpoints">
-                                    <span class="fa fa-arrow-left"></span>
-                                </a>
-                            </div>
-                            <div class="navbar-text pull-right">
-                                <a ng-click="model.createCheckpoint(checkpoint)">
-                                    <span class="fa fa-check"></span>
-                                </a>
-                            </div>
-                            <div class="navbar-header">
-                                <a class="navbar-brand">New Checkpoint</a>
+            <div class="collapse in" id="collapseExample">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="navbar-text pull-left">
+                                    <a href="#/organizer/event/{{model.eventId}}/checkpoints">
+                                        <span class="fa fa-arrow-left"></span>
+                                    </a>
+                                </div>
+                                <div class="navbar-text pull-right">
+                                    <a ng-click="model.createCheckpoint(checkpoint)">
+                                        <span class="fa fa-check"></span>
+                                    </a>
+                                </div>
+                                <div class="navbar-header">
+                                    <a class="navbar-brand">New Checkpoint</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div ng-show="model.error" class="alert alert-danger">
-                        {{model.error}}
-                    </div>
-                    <label for="name">Name</label>
-                    <input ng-model="checkpoint.name"
-                           type="text" id="name"
-                           placeholder="Name" class="form-control"/>
+                    </li>
+                    <li class="list-group-item">
+                        <div ng-show="model.error" class="alert alert-danger">
+                            {{model.error}}
+                        </div>
+                        <label for="name">Name</label>
+                        <input ng-model="checkpoint.name"
+                               type="text" id="name"
+                               placeholder="Name" class="form-control"/>
 
-                    <label for="desc">Information</label>
-                    <div text-angular id="desc" ng-model="checkpoint.question"
-                         ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+                        <label for="desc">Information</label>
+                        <div text-angular id="desc" ng-model="checkpoint.question"
+                             ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
                                         ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
                                         ['indent','outdent'],['html']]"></div>
 
-                    <label for="location">Place</label>
-                    <div class="row">
-                        <div class="col-xs-10">
-                            <input ng-model="event.place" googlelocation
-                                   id="location"
-                                   class="form-control"/>
+                        <label for="location">Place</label>
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <input ng-model="event.place" googlelocation
+                                       id="location"
+                                       class="form-control"/>
+                            </div>
+                            <div class="col-xs-2">
+                                <a ng-click="model.updateMapCenter()" class="btn btn-default btn-block">
+                                    <span class="fa fa-map-marker"></span>
+                                </a>
+                            </div>
                         </div>
-                        <div class="col-xs-2">
-                            <a ng-click="model.updateMapCenter()" class="btn btn-default btn-block">
-                                <span class="fa fa-map-marker"></span>
-                            </a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

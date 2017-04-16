@@ -35,7 +35,7 @@
             var pos = getPosition($rootScope.gLocation);
             if(pos) {
                 event.location = {
-                    id: event.location,
+                    //id: event.location,
                     latitude: pos.latitude,
                     longitude: pos.longitude
                 }

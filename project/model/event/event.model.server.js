@@ -144,7 +144,7 @@ function updateEvent(event) {
                 eventObj.place  = event.place;
                 eventObj.marker = event.marker;
                 eventObj.save(function (err, neweventObj) {
-                    if(event.location.id){
+                    if(event.location && event.location.id){
                         model.LocationModel
                             .updateLocation(event.location, function (err, location) {
                                 deferred.resolve(neweventObj);
