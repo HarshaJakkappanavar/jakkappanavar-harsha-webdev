@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "angular-google-maps": "^2.4.1",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.1",
     "cookie-parser": "^1.4.3",
     "express": "^4.13.4",

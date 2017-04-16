@@ -10,6 +10,7 @@ module.exports = function (app, model) {
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
+    var bcrypt = require("bcrypt-nodejs");
 
     // APIs listed from this service
     app.post("/project/services/api/user/login", passport.authenticate('local'), login);
@@ -25,7 +26,9 @@ module.exports = function (app, model) {
         }));
     app.put('/project/services/api/user/:userId', checkSameUser, updateProfile);
     app.get('/project/services/api/participant/:userId/events', checkSameUser, findEventsForUser);
-
+    app.get('/project/services/api/admin/isAdmin', isAdmin);
+    app.get("/project/services/api/users", checkAdmin,  findAllUsers);
+    app.delete("/project/services/api/user/:userId", checkAdmin, deleteUser);
 
     function findUser(req, res) {
         var username = req.query['username'];
@@ -41,13 +44,14 @@ module.exports = function (app, model) {
 
     function localStrategy(username, password, done) {
         model.ProjectUserModel
-            .findUserByCredentials(username, password)
+            .findUserByUsername(username)
             .then(
                 function(user) {
-                    if (!user) {
+                    if (user && bcrypt.compareSync(password, user.password)) {
+                        return done(null, user);
+                    }else{
                         return done(null, false);
                     }
-                    return done(null, user);
                 },
                 function(err) {
                     if (err) { return done(err); }
@@ -91,6 +95,7 @@ module.exports = function (app, model) {
 
     function createUser(req, res) {
         var user = req.body;
+        user.password = bcrypt.hashSync(user.password);
         model.ProjectUserModel
             .createUser(user)
             .then(function (user) {
@@ -188,5 +193,40 @@ module.exports = function (app, model) {
             .then(function (events) {
                 res.send(events);
             })
+    }
+
+    function isAdmin(req, res) {
+        res.send(req.isAuthenticated() && req.user.userType == 'admin' ? req.user : '0');
+    }
+
+    function findAllUsers(req, res) {
+        model.ProjectUserModel
+            .findAllUsers()
+            .then(function (users) {
+                    res.send(users);
+                },
+                function (error) {
+                    res.sendStatus(404);
+                });
+    }
+
+    function deleteUser(req, res) {
+        var userId  = req.params.userId;
+        model.ProjectUserModel
+            .deleteUser(userId)
+            .then(function (status) {
+                    res.sendStatus(200);
+                },
+                function (error) {
+                    res.sendStatus(404);
+                });
+    }
+
+    function checkAdmin(req, res, next) {
+        if(req.user && req.user.userType == 'admin') {
+            next();
+        } else {
+            res.send(401);
+        }
     }
 };

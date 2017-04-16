@@ -33,6 +33,16 @@ $(document).on('click', '.smpleTmpltOptn', function(e){
     e.preventDefault(); // cancel the link itself
 });
 
+$(document).on('click', '.smpleWindowToggle', function(e){
+
+    if($(this).parent().hasClass("active")) {
+        $(this).parent().removeClass("active");
+    }else {
+        $(this).parent().addClass("active")
+    }
+    e.preventDefault(); // cancel the link itself
+});
+
 
 function removeAllActiveTemplate(){
     $('.actTemplate').find('li').each(function(){

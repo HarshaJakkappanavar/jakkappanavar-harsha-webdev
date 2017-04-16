@@ -40,6 +40,9 @@
         }
 
         function registerByTeamName(team) {
+            if(team._id){
+                team = team.name;
+            }
             EventService
                 .registerByTeam(vm.userId, vm.eventId, team)
                 .success(function () {
@@ -50,8 +53,17 @@
                 });
         }
 
-        function registerByTeamMemberName(teamMemberName){
-
+        function registerByTeamMemberName(teamMember){
+            if(teamMember._id) {
+                EventService
+                    .registerByTeamMember(vm.userId, vm.eventId, teamMember._team)
+                    .success(function () {
+                        $location.url("/participant/events")
+                    })
+                    .error(function (err) {
+                        vm.error = "Could not register to the event."
+                    });
+            }
         }
     }
 })();

@@ -8,6 +8,8 @@ module.exports = function (app, model) {
     app.post("/project/services/api/event/:eventId/checkpoint", createCheckpoint);
 
     app.put("/project/services/event/:eventId/checkpoint", updateCheckpointSort);
+    app.get("/project/services/event/checkpoint/:checkpointId", findCheckpointById);
+    app.put("/project/services/event/checkpoint", updateCheckpoint);
 
     function findCheckpointsForEvent(req, res) {
         var eventId = req.params['eventId'];
@@ -45,5 +47,38 @@ module.exports = function (app, model) {
 
         model.CheckpointModel.reorderCheckpoint(eventId, startPos, endPos);
         res.sendStatus(200);
+    }
+
+    function findCheckpointById(req, res) {
+        var checkpointId = req.params.checkpointId;
+        model.CheckpointModel
+            .findCheckpointById(checkpointId)
+            .then(function (checkpoint) {
+                res.json(checkpoint);
+            }, function (error) {
+                res.sendStatus(400).send(error);
+            })
+
+    }
+
+    function updateCheckpoint(req, res) {
+        var checkpoint = req.body;
+        var location = checkpoint.location;
+        model.CheckpointModel
+            .updateCheckpoint(checkpoint, function (err, checkpoint) {
+                if(err) {
+                    res.sendStatus(400).send(err);
+                }else {
+                    location.id = location._id;
+                    model.LocationModel
+                        .updateLocation(location, function (err, location) {
+                            if(err) {
+                                res.sendStatus(400).send(err);
+                            }else {
+                                res.json(checkpoint);
+                            }
+                        })
+                }
+            })
     }
 };

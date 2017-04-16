@@ -5,7 +5,7 @@
             <li role="presentation">
                 <a class="smpleWindowToggle active"
                    data-toggle="collapse" data-target="#collapseExample">
-                    Show/Hide Events Dashboard
+                    Show/Hide Checkpoints Dashboard
                 </a>
             </li>
         </ul>
@@ -18,17 +18,17 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="navbar-text pull-left">
-                                    <a href="#/organizer/events">
+                                    <a href="#/organizer/event/{{model.eventId}}/checkpoints">
                                         <span class="fa fa-arrow-left"></span>
                                     </a>
                                 </div>
                                 <div class="navbar-text pull-right">
-                                    <a ng-click="model.createEvent(event)">
+                                    <a ng-click="model.updateCheckpoint(model.checkpoint)">
                                         <span class="fa fa-check"></span>
                                     </a>
                                 </div>
                                 <div class="navbar-header">
-                                    <a class="navbar-brand">New Event</a>
+                                    <a class="navbar-brand">Edit Checkpoint</a>
                                 </div>
                             </div>
                         </div>
@@ -37,26 +37,21 @@
                         <div ng-show="model.error" class="alert alert-danger">
                             {{model.error}}
                         </div>
-                        <label for="name">Event Name</label>
-                        <input ng-model="event.name"
+                        <label for="name">Name</label>
+                        <input ng-model="model.checkpoint.name"
                                type="text" id="name"
                                placeholder="Name" class="form-control"/>
 
-                        <label for="desc">Event Description</label>
-                        <div text-angular id="desc" ng-model="event.desc"
+                        <label for="desc">Information</label>
+                        <div text-angular id="desc" ng-model="model.checkpoint.question"
                              ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
                                         ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
                                         ['indent','outdent'],['html']]"></div>
 
-                        <label for="day">Event Day</label>
-                        <input ng-model="event.day"
-                               type="date" id="day"
-                               class="form-control"/>
-
-                        <label for="location">Event Place</label>
+                        <label for="location">Place</label>
                         <div class="row">
                             <div class="col-xs-10">
-                                <input ng-model="event.place" googlelocation
+                                <input ng-model="model.checkpoint.place" googlelocation
                                        id="location"
                                        class="form-control"/>
                             </div>
@@ -66,6 +61,10 @@
                                 </a>
                             </div>
                         </div>
+                        <a ng-click="model.deleteCheckpoint(model.checkpoint._id)" class="btn btn-danger btn-block">
+                            Delete
+                        </a>
+                        <input type="hidden" ng-model="model.checkpoint.location"/>
                     </li>
                 </ul>
             </div>

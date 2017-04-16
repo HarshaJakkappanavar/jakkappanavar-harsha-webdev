@@ -18,6 +18,8 @@ ProjectUserModel.addEventToUser = addEventToUser;
 ProjectUserModel.findUserByGoogleId = findUserByGoogleId;
 ProjectUserModel.updateUser = updateUser;
 ProjectUserModel.findEventsForUser = findEventsForUser;
+ProjectUserModel.findAllUsers = findAllUsers;
+ProjectUserModel.deleteUser = deleteUser;
 module.exports = ProjectUserModel;
 
 function setModel(_model) {
@@ -83,7 +85,11 @@ function addEventToUser(userId, eventId) {
         .then(function (user) {
             user.events.push(eventId);
             user.save(function (err, user) {
-                deferred.resolve(user);
+                if(err) {
+                    deferred.reject(err);
+                }else{
+                    deferred.resolve(user);
+                }
             });
         });
     return deferred.promise;
@@ -122,4 +128,12 @@ function findEventsForUser(userId) {
             deferred.resolve(user.events);
         });
     return deferred.promise;
+}
+
+function findAllUsers() {
+    return ProjectUserModel.find({userType: {$ne: 'admin'}});
+}
+
+function deleteUser(userId) {
+    return ProjectUserModel.remove({_id: userId});
 }

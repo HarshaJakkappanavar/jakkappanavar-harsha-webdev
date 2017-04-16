@@ -13,7 +13,7 @@ var UserSchema = mongoose.Schema({
     phone: String,
     events: [{type: mongoose.Schema.Types.ObjectId, ref: 'EventModel'}],
     currentLocation: {type: mongoose.Schema.Types.ObjectId, ref: 'LocationModel'},
-    userType: String, // TODO this should be and enum with values ORGANIZER PARTICIPANT ADMIN
+    userType: {type: String, enum: ["organizer", "participant", "admin"]}, // TODO this should be and enum with values ORGANIZER PARTICIPANT ADMIN
     google: {
         id: String,
         token: String

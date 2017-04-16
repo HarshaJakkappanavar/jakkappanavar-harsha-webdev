@@ -15,7 +15,10 @@
             loggedin: loggedin,
             logout: logout,
             updateProfile: updateProfile,
-            findEventsForUser: findEventsForUser
+            findEventsForUser: findEventsForUser,
+            isAdmin: isAdmin,
+            findAllUsers: findAllUsers,
+            deleteUser: deleteUser
         };
 
         return api;
@@ -52,6 +55,18 @@
 
         function findEventsForUser(userId) {
             return $http.get('/project/services/api/participant/' + userId + '/events');
+        }
+
+        function isAdmin() {
+            return $http.get('/project/services/api/admin/isAdmin');
+        }
+
+        function findAllUsers() {
+            return $http.get("/project/services/api/users");
+        }
+
+        function deleteUser(userId) {
+            return $http.delete("/project/services/api/user/" + userId);
         }
     }
 })();

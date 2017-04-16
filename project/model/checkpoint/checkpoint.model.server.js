@@ -14,6 +14,7 @@ CheckpointModel.findCheckpointById = findCheckpointById;
 CheckpointModel.findCheckpointsForEvent = findCheckpointsForEvent;
 CheckpointModel.createCheckpointForEvent = createCheckpointForEvent;
 CheckpointModel.reorderCheckpoint = reorderCheckpoint;
+CheckpointModel.updateCheckpoint = updateCheckpoint;
 module.exports = CheckpointModel;
 
 function setModel(_model) {
@@ -71,4 +72,26 @@ function createCheckpointForEvent(eventId, checkpoint) {
 
 function reorderCheckpoint(eventId, startPos, endPos) {
     return model.EventModel.reorderCheckpointForEvent(eventId, startPos, endPos);
+}
+
+function updateCheckpoint(checkpoint) {
+    var deferred = q.defer();
+    CheckpointModel
+        .findById(checkpoint._id, function (err, checkpointObj) {
+            if(err) {
+                deferred.reject(err);
+            }else {
+                checkpointObj.name = checkpoint.name;
+                checkpointObj.question = checkpoint.question;
+                checkpointObj.place  = checkpoint.place;
+                checkpointObj.save(function (err, newcheckpointObj) {
+                    if(err) {
+                        deferred.reject(err);
+                    }else {
+                        deferred.resolve(newcheckpointObj);
+                    }
+                });
+            }
+        });
+    return deferred.promise;
 }

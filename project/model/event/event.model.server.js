@@ -17,6 +17,8 @@ EventModel.addCheckpointToEvent = addCheckpointToEvent;
 EventModel.reorderCheckpointForEvent = reorderCheckpointForEvent;
 EventModel.getAllEvents = getAllEvents;
 EventModel.addTeamToEvent = addTeamToEvent;
+EventModel.deleteEvent = deleteEvent;
+EventModel.updateEvent = updateEvent;
 module.exports = EventModel;
 
 function setModel(_model) {
@@ -121,6 +123,37 @@ function addTeamToEvent(eventId, teamId) {
             event.save(function(err, event) {
                 deferred.resolve(event);
             });
+        });
+    return deferred.promise;
+}
+
+function deleteEvent(eventId) {
+    return EventModel.remove({_id: eventId});
+}
+
+function updateEvent(event) {
+    var deferred = q.defer();
+    EventModel
+        .findById(event._id, function (err, eventObj) {
+            if(err) {
+                deferred.reject(err);
+            }else {
+                eventObj.name = event.name;
+                eventObj.desc = event.desc;
+                eventObj.day = event.day;
+                eventObj.place  = event.place;
+                eventObj.marker = event.marker;
+                eventObj.save(function (err, neweventObj) {
+                    if(event.location.id){
+                        model.LocationModel
+                            .updateLocation(event.location, function (err, location) {
+                                deferred.resolve(neweventObj);
+                            })
+                    }else {
+                        deferred.resolve(neweventObj);
+                    }
+                });
+            }
         });
     return deferred.promise;
 }

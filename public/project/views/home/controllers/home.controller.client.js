@@ -13,6 +13,7 @@
         vm.login = login;
         vm.register = register;
         vm.logout = logout;
+        vm.updateMapCenter = updateMapCenter;
 
         $rootScope.login = vm.login;
         $rootScope.register = vm.register;
@@ -21,7 +22,24 @@
         init();
 
         function init() {
-            $rootScope.map = { center: { latitude: 42.34, longitude: -71.09 }, zoom: 14 };
+            $rootScope.map = {
+                center: {
+                    latitude: 42.34,
+                    longitude: -71.09
+                },
+                zoom: 14//,
+                //styles: [{"featureType":"all","elementType":"all","stylers":[{"hue":"#ff0000"},{"saturation":-100},{"lightness":-30}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"color":"#353535"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#656565"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"color":"#505050"}]},{"featureType":"poi","elementType":"geometry.stroke","stylers":[{"color":"#808080"}]},{"featureType":"road","elementType":"geometry","stylers":[{"color":"#454545"}]},{"featureType":"transit","elementType":"labels","stylers":[{"hue":"#000000"},{"saturation":100},{"lightness":-40},{"invert_lightness":true},{"gamma":1.5}]}]
+            };
+            /*styles: [{
+             "featureType":"all",
+             "elementType":"all",
+             "stylers":[{
+             "saturation":-100
+             }, {
+             "gamma":0.5
+             }]
+             }]*/
+
             vm.map = $rootScope.map;
 
             uiGmapGoogleMapApi.then(function(maps) {
@@ -32,6 +50,7 @@
                 .getAllEvents()
                 .success(function (events) {
                     vm.markerSet = getMarkers(events);
+                    vm.allEvents = vm.markerSet;
                 });
         }
 
@@ -50,12 +69,11 @@
 
                     var loginUser = user;
                     if( loginUser != null){
-                        /*if(loginUser.userType == 'organizer'){
-                            $location.url("/organizer/events");
-                        }else if (loginUser.userType == 'participant'){
-                            $location.url("/participant/" + loginUser._id);
-                        }*/
-                        $location.url("/profile");
+                        if(loginUser.userType == 'admin'){
+                            $location.url("/admin/home");
+                        }else {
+                            $location.url("/profile");
+                        }
                     } else {
                         vm.error="The username or password is incorrect.";
                     }
@@ -124,9 +142,9 @@
                         };
                         marker.icon = setMarkerIcon(events[e].day);
                         marker.title +=
-                            '<div class="container-fluid">' +
-                            '<a href="#/participant/event/'+events[e]._id+'/register" ' +
-                            '       class="btn btn-primary">Register</a>' +
+                            '<div>' +
+                            '<button data-toggle="modal" data-target="#login" ' +
+                            '       class="btn btn-primary btn-block">Register</button>' +
                             '</div>';
                         markers.push(marker);
                     }
@@ -157,6 +175,39 @@
 
             return today.getTime() <= eventDay.getTime();
 
+        }
+
+        function updateMapCenter() {
+            var pos = getPosition($rootScope.gLocation);
+            if(pos) {
+                vm.map.center.latitude = pos.latitude;
+                vm.map.center.longitude = pos.longitude;
+                vm.map.center.zoom = 15;
+            }
+
+            var markers = [];
+
+            markers.push({
+                id: new Date().getTime(),
+                latitude: pos.latitude,
+                longitude: pos.longitude,
+                events:{
+                    click:function (marker, eventName, args) {
+                        console.log("Something")
+                        vm.show = !vm.show;
+                    }
+                }
+            });
+            vm.markerSet = vm.allEvents.concat(markers);
+        }
+
+        function getPosition(gLocation) {
+            if(gLocation){
+                var geoComponents = gLocation.getPlace();
+                var latitude = geoComponents.geometry.location.lat();
+                var longitude = geoComponents.geometry.location.lng();
+                return {latitude: latitude, longitude: longitude};
+            }
         }
     }
 })();

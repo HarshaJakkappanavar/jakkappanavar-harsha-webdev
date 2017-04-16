@@ -15,32 +15,31 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="form-horizontal">
-                <div class="has-feedback">
-                    <div class="col-sm-6 navbar-form navbar-left">
-                        <input type="text" class="form-control" id="eventSearch" aria-describedby="eventSearchStatus">
-                        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-                        <span id="eventSearchStatus" class="sr-only">(success)</span>
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input ng-model="location" googlelocation type="text" class="form-control" name="q">
+                    <div class="input-group-btn">
+                        <button ng-click="model.updateMapCenter()" class="btn btn-default location-search"><i class="glyphicon glyphicon-map-marker"></i></button>
                     </div>
-                    <ul ng-if="!model.user" class="form-group nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="modal" data-target="#login"><b>Sign In/Sign Up</b></a>
-                        </li>
-                    </ul>
-                    <ul ng-if="model.user" class="form-group nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a ng-click="model.logout()"><b>Logout</b></a>
-                        </li>
-                    </ul>
                 </div>
+                <ul ng-if="!model.user" class="form-group nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="modal" data-target="#login"><b>Sign In/Sign Up</b></a>
+                    </li>
+                </ul>
+                <ul ng-if="model.user" class="form-group nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a ng-click="model.logout()"><b>Logout</b></a>
+                    </li>
+                </ul>
             </form>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
 <div class="container-fluid">
     <div id="map">
-        <ui-gmap-google-map center='model.map.center' zoom='model.map.zoom'>
-            <ui-gmap-markers ng-if="model.markerSet" models="model.markerSet" coords="'self'" icon="'icon'" options="'options'">
+        <ui-gmap-google-map center='model.map.center' zoom='model.map.zoom' styles='model.map.styles'>
+            <ui-gmap-markers ng-if="model.markerSet" models="model.markerSet" coords="'self'" icon="'icon'" options="'options'" fit="true">
                 <ui-gmap-windows show="show">
                     <div ng-non-bindable>{{title}}</div>
                 </ui-gmap-windows>
@@ -83,6 +82,9 @@
                             </div>
                         </div>
                         <div class="sign-up-htm">
+                            <div ng-show="model.error" class="alert alert-danger">
+                                {{model.error}}
+                            </div>
                             <div class="group">
                                 <label for="signupUsername" class="label">Username</label>
                                 <input ng-model="user.username" id="signupUsername" type="text" class="input">

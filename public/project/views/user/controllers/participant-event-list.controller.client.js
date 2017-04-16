@@ -83,9 +83,9 @@
                         };
                         marker.icon = setMarkerIcon(notMyEvents[e].day);
                         marker.title +=
-                            '<div class="container-fluid">' +
+                            '<div>' +
                                 '<a href="#/participant/event/'+notMyEvents[e]._id+'/register" ' +
-                            '       class="btn btn-primary">Register</a>' +
+                            '       class="btn btn-primary btn-block">Register</a>' +
                             '</div>';
                         markers.push(marker);
                     }

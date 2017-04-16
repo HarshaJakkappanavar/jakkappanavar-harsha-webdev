@@ -12,7 +12,11 @@
             findEventsForUser: findEventsForUser,
             createEvent: createEvent,
             getAllEvents: getAllEvents,
-            registerByTeam: registerByTeam
+            registerByTeam: registerByTeam,
+            deleteEvent : deleteEvent,
+            findEventById: findEventById,
+            updateEvent: updateEvent,
+            registerByTeamMember: registerByTeamMember
         }
 
         return api;
@@ -30,7 +34,23 @@
         }
 
         function registerByTeam(userId, eventId, team) {
-            return $http.post("/project/services/api/user/" + userId + "/event/" + eventId + "/register/team", team);
+            return $http.post("/project/services/api/user/" + userId + "/event/" + eventId + "/register/team", {name: team});
+        }
+
+        function deleteEvent(eventId) {
+            return $http.delete("/project/services/api/event/" + eventId, deleteEvent);
+        }
+
+        function findEventById(eventId) {
+            return $http.get("/project/services/api/event/" + eventId);
+        }
+
+        function updateEvent(event) {
+            return $http.put("/project/services/api/event/update", event);
+        }
+
+        function registerByTeamMember(userId, eventId, teamId) {
+            return $http.post("/project/services/api/user/" + userId + "/event/" + eventId + "/register/team/teamId", {id: teamId});
         }
     }
 })();

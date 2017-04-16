@@ -1,0 +1,44 @@
+<ng-include src="'views/home/template/home.view.client.html'"></ng-include>
+<div class="container-fluid">
+    <div class="row organizerScreen">
+        <div class="col-xs-6">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="navbar-text pull-left">
+                            <a href="#/admin/home">
+                                <span class="fa fa-arrow-left"></span>
+                            </a>
+                        </div>
+                        <div class="col-xs-10 navbar-text">
+                            <sapn class="h3">Manage Application Users</sapn>
+                        </div>
+                    </div>
+                </li>
+                <li ng-repeat="user in model.allUsers" class="list-group-item">
+                    <div class="row">
+                        <div class="col-xs-8 col-sm-4">
+                            {{user.firstName}} {{user.lastName}}
+                        </div>
+                        <div class="col-sm-2 hidden-xs">
+                            {{user.username}}
+                        </div>
+                        <div class="col-sm-4 hidden-xs">
+                            <h4>
+                                <span ng-if="user.userType == model.organizer"
+                                      class="label label-primary">{{user.userType}}</span>
+                                <span ng-if="user.userType == model.participant"
+                                      class="label label-success">{{user.userType}}</span>
+                            </h4>
+                        </div>
+                        <div class="col-xs-2 col-sm-2">
+                            <a ng-click="model.deleteUser(user._id)" class="btn btn-danger btn-md">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -23,12 +23,12 @@
                                     </a>
                                 </div>
                                 <div class="navbar-text pull-right">
-                                    <a ng-click="model.createEvent(event)">
+                                    <a ng-click="model.updateEvent(model.event)">
                                         <span class="fa fa-check"></span>
                                     </a>
                                 </div>
                                 <div class="navbar-header">
-                                    <a class="navbar-brand">New Event</a>
+                                    <a class="navbar-brand">Edit Event</a>
                                 </div>
                             </div>
                         </div>
@@ -38,25 +38,25 @@
                             {{model.error}}
                         </div>
                         <label for="name">Event Name</label>
-                        <input ng-model="event.name"
+                        <input ng-model="model.event.name"
                                type="text" id="name"
                                placeholder="Name" class="form-control"/>
 
                         <label for="desc">Event Description</label>
-                        <div text-angular id="desc" ng-model="event.desc"
+                        <div text-angular id="desc" ng-model="model.event.desc"
                              ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
                                         ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
                                         ['indent','outdent'],['html']]"></div>
 
                         <label for="day">Event Day</label>
-                        <input ng-model="event.day"
-                               type="date" id="day"
+                        <input ng-model="model.event.day"
+                               type="date" id="day" name="{{model.event.day}}"
                                class="form-control"/>
 
                         <label for="location">Event Place</label>
                         <div class="row">
                             <div class="col-xs-10">
-                                <input ng-model="event.place" googlelocation
+                                <input ng-model="model.event.place" googlelocation
                                        id="location"
                                        class="form-control"/>
                             </div>
@@ -66,6 +66,7 @@
                                 </a>
                             </div>
                         </div>
+                        <input type="hidden" ng-model="model.checkpoint.location"/>
                     </li>
                 </ul>
             </div>

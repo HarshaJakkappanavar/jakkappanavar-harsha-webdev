@@ -1,59 +1,73 @@
 <ng-include src="'views/home/template/home.view.client.html'"></ng-include>
 <div class="container-fluid">
+    <div class="participantContainer">
+        <ul class="pagination pagination-sm actTemplate">
+            <li role="presentation" class="active">
+                <a class="smpleWindowToggle"
+                        data-toggle="collapse" data-target="#collapseExample">
+                    Show/Hide Events Dashboard
+                </a>
+            </li>
+        </ul>
+    </div>
     <div class="row organizerContainer">
         <div class="col-xs-12 col-sm-6 organizerScreen">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-xs-10 col-sm-6">
-                            <div class="navbar-header">
-                                <a class="navbar-brand">Event Name</a>
+            <div class="collapse in" id="collapseExample">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-10 col-sm-6">
+                                <div class="navbar-header">
+                                    <a class="navbar-brand">Event Name</a>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 hidden-xs">
+                                <div class="navbar-header">
+                                    <a class="navbar-brand">Day</a>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 col-xs-2">
+                                <div class="navbar-text pull-right">
+                                    <a href="#/organizer/events/new">
+                                        <span class="fa fa-plus pull-right"></span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-3 hidden-xs">
-                            <div class="navbar-header">
-                                <a class="navbar-brand">Day</a>
+                    </li>
+                    <li ng-repeat="event in model.events" class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6">
+                                <a href="#/organizer/event/{{event._id}}">{{event.name}}</a>
                             </div>
-                        </div>
-                        <div class="col-sm-3 col-xs-2">
-                            <div class="navbar-text pull-right">
-                                <a href="#/organizer/events/new">
-                                    <span class="fa fa-plus pull-right"></span>
+                            <div class="col-sm-2 hidden-xs hidden-sm">
+                                {{event.day | date}}
+                            </div>
+                            <div class="col-xs-2 text-center">
+                                <a id="event_team_{{event._id}}" href="#/organizer/event/{{event._id}}/teams"><!--ng-click="model.viewTeamsForEvent(event._id)"-->
+                                    <span class="fa fa-users text-center"></span>
+                                    <label for="event_team_{{event._id}}" class="label label-primary text-center">Teams</label>
+                                </a>
+                            </div>
+                            <div class="col-xs-2 text-center">
+                                <a id="event_checkpoint_{{event._id}}" href="#/organizer/event/{{event._id}}/checkpoints">
+                                    <span class="fa fa-flag-checkered text-center"></span>
+                                    <label for="event_checkpoint_{{event._id}}" class="label label-primary text-center">Checkpoints</label>
                                 </a>
                             </div>
                         </div>
-                    </div>
-                </li>
-                <li ng-repeat="event in model.events" class="list-group-item">
-                    <div class="row">
-                        <div class="col-xs-8 col-sm-6">
-                            <a>{{event.name}}</a>
-                        </div>
-                        <div class="col-sm-2 hidden-xs">
-                            {{event.day | date}}
-                        </div>
-                        <div class="col-xs-2">
-                            <a href="#/organizer/event/{{event._id}}/teams"><!--ng-click="model.viewTeamsForEvent(event._id)"-->
-                                <span class="fa fa-users pull-right"></span>
-                            </a>
-                        </div>
-                        <div class="col-xs-2">
-                            <a href="#/organizer/event/{{event._id}}/checkpoints">
-                                <span class="fa fa-flag-checkered pull-right"></span>
-                            </a>
-                        </div>
-                    </div>
-                </li>
-                <li ng-show="model.events.length == 0" class="list-group-item">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="navbar-header">
-                                <a class="navbar-brand">Organize events. Start by creating a new event.</a>
+                    </li>
+                    <li ng-show="model.events.length == 0" class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="navbar-header">
+                                    <a class="navbar-brand">Organize events. Start by creating a new event.</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-            </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

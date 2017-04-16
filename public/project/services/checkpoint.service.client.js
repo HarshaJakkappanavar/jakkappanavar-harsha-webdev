@@ -11,7 +11,9 @@
         var api = {
             findCheckpointsForEvent: findCheckpointsForEvent,
             createCheckpoint: createCheckpoint,
-            updateCheckpointSort: updateCheckpointSort
+            updateCheckpointSort: updateCheckpointSort,
+            findCheckpointById: findCheckpointById,
+            updateCheckpoint: updateCheckpoint
         }
 
         return api;
@@ -27,6 +29,14 @@
         function updateCheckpointSort(startPos, endPos) {
             var eventId = $rootScope.eventId;
             return $http.put("/project/services/event/"+eventId+"/checkpoint?start="+startPos+"&end=" + endPos);
+        }
+
+        function findCheckpointById(checkpointId) {
+            return $http.get("/project/services/event/checkpoint/" + checkpointId);
+        }
+
+        function updateCheckpoint(checkpoint) {
+            return $http.put("/project/services/event/checkpoint", checkpoint);
         }
     }
 })();

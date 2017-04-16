@@ -1,0 +1,70 @@
+<ng-include src="'views/home/template/home.view.client.html'"></ng-include>
+<div class="container-fluid">
+    <div class="row organizerScreen">
+        <div class="col-sm-6">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="navbar-text pull-left">
+                            <a href="#/admin/home">
+                                <span class="fa fa-arrow-left"></span>
+                            </a>
+                        </div>
+                        <div class="col-xs-10 col-sm-6 navbar-text">
+                            <span class="h3">Outdated Events</span>
+                        </div>
+                    </div>
+                </li>
+                <li ng-repeat="event in model.outdatedEvents" class="list-group-item">
+                    <div class="row">
+                        <div class="col-xs-5 col-sm-2">
+                            {{event.name}}
+                        </div>
+                        <div class="col-sm-4 hidden-xs">
+                            {{event.place}}
+                        </div>
+                        <div class="col-xs-5 col-sm-4">
+                            <h4><span class="label label-danger"> {{event.day | date}} </span></h4>
+                        </div>
+                        <div class="col-xs-2 col-sm-2">
+                            <a ng-click="model.deleteEvent(event._id)" class="btn btn-danger btn-md">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-6">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-xs-10 col-sm-6 navbar-text">
+                            <span class="h3">Upcoming Events</span>
+                        </div>
+                    </div>
+                </li>
+                <li ng-repeat="event in model.upcomingEvents" class="list-group-item">
+                    <div class="row">
+                        <div class="col-xs-5 col-sm-2">
+                            {{event.name}}
+                        </div>
+                        <div class="col-sm-4 hidden-xs">
+                            {{event.place}}
+                        </div>
+                        <div class="col-xs-5 col-sm-4">
+                            <a href="#">
+                                <h4><span class="label label-success"> {{event.day | date}} </span></h4>
+                            </a>
+                        </div>
+                        <div class="col-xs-2 col-sm-2">
+                            <a ng-click="model.deleteEvent(event._id)" class="btn btn-danger btn-md">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

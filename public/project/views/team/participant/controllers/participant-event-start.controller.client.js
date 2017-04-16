@@ -12,8 +12,6 @@
         vm.user = currentUser;
         vm.userId = currentUser._id;
         vm.eventId = $routeParams.eventId;
-        /*vm.showTeamMarkers = showTeamMarkers;
-        vm.showMyMarker = showMyMarker;*/
         vm.checkReached = checkReached;
 
         init();
@@ -86,7 +84,7 @@
                             id: members[m]._id,
                             latitude: locations[locations.length - 1].latitude,
                             longitude: locations[locations.length - 1].longitude,
-                            title: '<h2>Hey there</h2>',
+                            title: "<h2>Hey there, I am gonna find the next checkpoint.</h2>",
                             options: {
                                 labelClass:'marker_labels',
                                 labelAnchor:'12 60',
@@ -174,8 +172,6 @@
                     }
                     initGeoLocation();
                 }
-                console.log(vm.team);
-                console.log(vm.allCheckpoints);
             });
         }
     }

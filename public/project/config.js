@@ -25,14 +25,30 @@
                 controller: "HomeController",
                 controllerAs: "model"
             })
-            /*.when("/admin", {
-                templateUrl: "views/admin/template/admin.view.client.html",
-                controller: "AdminController",
+            .when("/admin/home", {
+                templateUrl: "views/admin/template/admin-home.view.client.html",
+                controller: "AdminHomeController",
                 controllerAs: "model",
                 resolve: {
                     adminUser: isAdmin
                 }
-            })*/
+            })
+            .when("/admin/manage-events", {
+                templateUrl: "views/admin/template/admin-manage-events.view.client.html",
+                controller: "AdminManageEventsController",
+                controllerAs: "model",
+                resolve: {
+                    adminUser: isAdmin
+                }
+            })
+            .when("/admin/manage-users", {
+                templateUrl: "views/admin/template/admin-manage-users.view.client.html",
+                controller: "AdminManageUsersController",
+                controllerAs: "model",
+                resolve: {
+                    adminUser: isAdmin
+                }
+            })
             .when("/profile", {
                 templateUrl: "views/user/template/profile.view.client.html",
                 controller: "ProfileController",
@@ -81,6 +97,14 @@
                     currentUser: checkOrganizer
                 }
             })
+            .when("/organizer/event/:eventId", {
+                templateUrl: "views/user/template/organizer-event-edit.view.client.html",
+                controller: "OrganizerEditEventController",
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkOrganizer
+                }
+            })
             .when("/organizer/event/:eventId/teams", {
                 templateUrl: "views/team/organizer/template/team-list.view.client.html",
                 controller: "OrganizerTeamListController",
@@ -105,6 +129,14 @@
                     currentUser: checkOrganizer
                 }
             })
+            .when("/organizer/event/:eventId/checkpoint/:checkpointId", {
+                templateUrl: "views/checkpoint/organizer/template/checkpoint-edit.view.client.html",
+                controller: "OrganizerCheckpointEditController",
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkOrganizer
+                }
+            })
             .otherwise({
                 redirectTo: '/home'
             })
@@ -118,20 +150,20 @@
         });
     }
 
-    /*function isAdmin($q, userService, $location) {
+    function isAdmin($q, UserService, $location) {
         var deffered = $q.defer();
-        userService
+        UserService
             .isAdmin()
             .then(function (user) {
                 if(user == '0') {
                     deffered.reject();
-                    $location.url('/profile')
+                    $location.url('/home')
                 } else {
                     deffered.resolve(user);
                 }
             });
         return deffered.promise;
-    }*/
+    }
 
     function checkOrganizer($q, UserService, $location, $rootScope) {
         var deferred = $q.defer();
