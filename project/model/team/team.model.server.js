@@ -16,6 +16,7 @@ TeamModel.createTeam = createTeam;
 TeamModel.findTeamByName = findTeamByName;
 TeamModel.findTeamById = findTeamById;
 TeamModel.addCheckpointToTeam = addCheckpointToTeam;
+TeamModel.unregisterMemberForTeam = unregisterMemberForTeam;
 module.exports = TeamModel;
 
 function setModel(_model) {
@@ -145,6 +146,24 @@ function addCheckpointToTeam(teamId, checkpointId) {
     TeamModel
         .findById(teamId, function (err, team) {
             team.checkpoints.push(checkpointId);
+            team.save(function (err, team) {
+                deferred.resolve(team);
+            });
+        });
+    return deferred.promise;
+}
+
+function unregisterMemberForTeam(memberId, teamId){
+    var deferred = q.defer();
+    TeamModel
+        .findById(teamId, function (err, team) {
+            var members = [];
+            for(var i =0; i < team.members; i++) {
+                if(team.members[i] != memberId) {
+                    members.push(team.members[i]);
+                }
+            }
+            team.members = members;
             team.save(function (err, team) {
                 deferred.resolve(team);
             });

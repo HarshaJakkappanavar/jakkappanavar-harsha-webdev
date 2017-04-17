@@ -12,6 +12,7 @@ var model = '';
 MemberModel.setModel = setModel;
 MemberModel.createMember = createMember;
 MemberModel.addLocationToMember = addLocationToMember;
+MemberModel.deleteMemberById = deleteMemberById;
 module.exports = MemberModel;
 
 function setModel(_model) {
@@ -47,4 +48,12 @@ function addLocationToMember(memberId, locationId) {
             });
         });
     return deferred.promise;
+}
+
+function deleteMemberById(memberId) {
+    var deferred = q.defer();
+    MemberModel
+        .remove({_id: memberId}, function (err, status) {
+            deferred.resolve(status);
+        })
 }

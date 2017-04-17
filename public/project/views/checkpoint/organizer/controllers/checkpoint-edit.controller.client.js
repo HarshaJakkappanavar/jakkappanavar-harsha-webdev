@@ -24,6 +24,8 @@
             vm.login = $rootScope.login;
             vm.register = $rootScope.register;
             vm.logout = $rootScope.logout;
+            vm.updateMapCenter = $rootScope.updateMapCenter;
+            vm.updateProfile = $rootScope.updateProfile;
 
             CheckpointService
                 .findCheckpointById(vm.checkpointId)

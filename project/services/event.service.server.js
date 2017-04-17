@@ -12,6 +12,7 @@ module.exports = function (app, model) {
     app.get("/project/services/api/event/:eventId", findEventById);
     app.put("/project/services/api/event/update", updateEvent);
     app.post("/project/services/api/user/:userId/event/:eventId/register/team/teamId", registerByTeamMember);
+    app.delete("/project/services/user/:userId/event/:eventId/unregister", unregisterEventByUser);
 
     function findEventsForUser(req, res) {
         var userId = req.params['userId'];
@@ -143,5 +144,38 @@ module.exports = function (app, model) {
                         res.sendStatus(200);
                     });
             });
+    }
+
+    function unregisterEventByUser(req, res) {
+        var eventId = req.params.eventId;
+        var userId = req.params.userId;
+
+        model.ProjectUserModel
+            .unregisterEventForUser(eventId, userId)
+            .then(function (user) {
+                model.TeamModel
+                    .findTeamsForEvent(eventId)
+                    .then(function (teams) {
+                        for(var t = 0; t < teams.length; t++) {
+                            var members = teams[t].members;
+                            for(var m = 0; m < members.length; m++) {
+                                if(members[m].participant._id == userId) {
+                                    model.TeamModel
+                                        .unregisterMemberForTeam(members[m]._id, teams[t]._id)
+                                        .then(function (team) {
+                                            model.MemberModel
+                                                .deleteMemberById(members[m]._id)
+                                                .then(function (status) {
+                                                    res.json(team);
+                                                    return;
+                                                })
+                                        })
+                                }
+                            }
+                        }
+                    }, function (error) {
+                        res.sendStatus(404);
+                    });
+            })
     }
 };

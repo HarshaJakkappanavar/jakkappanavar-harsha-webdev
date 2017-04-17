@@ -16,7 +16,8 @@
             deleteEvent : deleteEvent,
             findEventById: findEventById,
             updateEvent: updateEvent,
-            registerByTeamMember: registerByTeamMember
+            registerByTeamMember: registerByTeamMember,
+            unregisterEventForUser: unregisterEventForUser
         }
 
         return api;
@@ -51,6 +52,10 @@
 
         function registerByTeamMember(userId, eventId, teamId) {
             return $http.post("/project/services/api/user/" + userId + "/event/" + eventId + "/register/team/teamId", {id: teamId});
+        }
+
+        function unregisterEventForUser(eventId, userId) {
+            return $http.delete("/project/services/user/" + userId + "/event/" + eventId + "/unregister");
         }
     }
 })();

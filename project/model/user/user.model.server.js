@@ -20,6 +20,7 @@ ProjectUserModel.updateUser = updateUser;
 ProjectUserModel.findEventsForUser = findEventsForUser;
 ProjectUserModel.findAllUsers = findAllUsers;
 ProjectUserModel.deleteUser = deleteUser;
+ProjectUserModel.unregisterEventForUser = unregisterEventForUser;
 module.exports = ProjectUserModel;
 
 function setModel(_model) {
@@ -136,4 +137,22 @@ function findAllUsers() {
 
 function deleteUser(userId) {
     return ProjectUserModel.remove({_id: userId});
+}
+
+function unregisterEventForUser(eventId, userId) {
+    var deferred = q.defer();
+    ProjectUserModel
+        .findById(userId, function (err, user) {
+            var events = [];
+            for(var i = 0; i < user.events.length; i++) {
+                if(user.events[i] != eventId) {
+                    events.push(user.events[i]);
+                }
+            }
+            user.events = events;
+            user.save(function (err, user) {
+                deferred.resolve(user);
+            })
+        })
+    return deferred.promise;
 }

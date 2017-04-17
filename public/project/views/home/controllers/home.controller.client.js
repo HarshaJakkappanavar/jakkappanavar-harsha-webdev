@@ -14,10 +14,14 @@
         vm.register = register;
         vm.logout = logout;
         vm.updateMapCenter = updateMapCenter;
+        vm.unregisterEvent = unregisterEvent;
+        vm.updateProfile = updateProfile;
 
         $rootScope.login = vm.login;
         $rootScope.register = vm.register;
         $rootScope.logout = vm.logout;
+        $rootScope.updateMapCenter = vm.updateMapCenter;
+        $rootScope.updateProfile = vm.updateProfile;
 
         init();
 
@@ -208,6 +212,22 @@
                 var longitude = geoComponents.geometry.location.lng();
                 return {latitude: latitude, longitude: longitude};
             }
+        }
+
+        function unregisterEvent(eventId) {
+            EventService
+                .unregisterEventForUser(eventId, vm.userId)
+                .success(function (status) {
+                    init();
+                });
+        }
+
+        function updateProfile(user) {
+            UserService
+                .updateProfile(user)
+                .success(function (user) {
+                    console.log("Profile updated");
+                });;
         }
     }
 })();

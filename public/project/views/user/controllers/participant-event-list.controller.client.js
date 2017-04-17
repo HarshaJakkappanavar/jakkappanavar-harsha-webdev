@@ -6,13 +6,14 @@
         .module("TreasureHuntApp")
         .controller("ParticipantEventListController", ParticipantEventListController);
 
-    function ParticipantEventListController($rootScope, currentUser, EventService, UserService) {
+    function ParticipantEventListController($rootScope, $compile, currentUser, EventService, UserService) {
         var vm = this;
 
         vm.user = currentUser;
         vm.userId = currentUser._id;
         vm.showAllMarkers = showAllMarkers;
         vm.showMyMarkers = showMyMarkers;
+        vm.unregisterEvent = unregisterEvent;
 
         init();
 
@@ -21,6 +22,8 @@
             vm.login = $rootScope.login;
             vm.register = $rootScope.register;
             vm.logout = $rootScope.logout;
+            vm.updateMapCenter = $rootScope.updateMapCenter;
+            vm.updateProfile = $rootScope.updateProfile;
 
             EventService
                 .getAllEvents()
@@ -58,9 +61,11 @@
                         };
                         marker.icon = setMarkerIcon(myEvents[e].day);
                         if(isToday(myEvents[e].day)){
-                            marker.title += '<a href="#/participant/event/' + myEvents[e]._id + '/start" class="btn btn-success btn-block">Start</a>'
+                            marker.title += '<a href="#/participant/event/' + myEvents[e]._id + '/start" class="btn btn-success btn-block">Start / Resume</a>'
                         }
-                        marker.title += '<a class="btn btn-danger btn-block">Unregister</a>';
+                        var unregisterHTML = '<a ng-click=\'$parent.unregisterEvent("' + myEvents[e]._id + '")\' class="btn btn-danger btn-block">Unregister</a>';
+                        // marker.title += $compile(unregisterHTML)(vm)[0];
+                        // marker.title += unregisterHTML;
                         markers.push(marker);
                         vm.myMarkers.push(marker);
                     }
@@ -133,6 +138,14 @@
 
         function showMyMarkers() {
             vm.markerSet = vm.myMarkers;
+        }
+
+        function unregisterEvent(eventId) {
+            EventService
+                .unregisterEventForUser(eventId, vm.userId)
+                .success(function (status) {
+                   init();
+                });
         }
     }
 })();
