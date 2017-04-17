@@ -129,8 +129,13 @@ html, body {
 /*Login and Register*/
 
 
-#login, .form-horizontal.dropdown {
+#login, #info, #profile, .form-horizontal.dropdown, info-content {
     color: white;
+}
+
+.info-content>.list-group {
+    height: 540px;
+    overflow-y: auto;
 }
 
 .location-search {

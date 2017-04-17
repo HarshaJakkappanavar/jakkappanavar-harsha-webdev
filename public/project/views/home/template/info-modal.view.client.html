@@ -1,0 +1,123 @@
+<div class="modal fade" id="info" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="login-wrap">
+                <div class="login-html">
+                    <input id="tab-5" type="radio" name="tab2" class="sign-in" checked><label for="tab-5" class="tab">Organizer</label>
+                    <input id="tab-6" type="radio" name="tab2" class="sign-up"><label for="tab-6" class="tab">Participant</label>
+                    <div class="login-form">
+                        <div class="sign-in-htm">
+                            <div class="">
+                                <div class="container-fluid info-content bg-primary">
+                                    <h2>INFORMATION: <strong>Organizer</strong></h2>
+                                    <ul class="list-group">
+                                        <li class="list-group-item list-group-item-info">
+                                            The application has two user roles: Being an Organizer is one of them.
+                                        </li>
+                                        <li class="list-group-item list-group-item-info">
+                                            If you are a first time user and want to organize an event, register to the application as an Organizer.<br><br>If you are revisiting, you can login.
+                                            <a class="label label-primary"
+                                               data-toggle="collapse" data-target="#more-info">
+                                                more info
+                                            </a>
+                                        </li>
+                                        <div class="collapse" id="more-info">
+                                            <li class="list-group-item list-group-item-info">
+                                                As an Organizer you'll be able to see all the events that are created by you. <br>If your event is happening today, it's shown with a green marker on the map, red if it's in the future and blue if it's past dead.
+                                            </li>
+                                            <li class="list-group-item list-group-item-info">
+                                                Add a new event.<a class="label label-primary"
+                                                                   data-toggle="collapse" data-target="#add-event-info">more</a>
+                                                <div class="collapse" id="add-event-info">
+                                                    Enter the event name, give a brief description for your event, enter the date of event, specify the location where this event will be held.
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item list-group-item-info">
+                                                Add checkpoints for event.<a class="label label-primary"
+                                                                        data-toggle="collapse" data-target="#add-checkpoint-info">more</a>
+                                                <div class="collapse" id="add-checkpoint-info">
+                                                    For an event, place multiple checkpoints each leading to the next one, enter the checkpoint info/riddle and choose a location.
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item list-group-item-info">
+                                                See registered teams.<a class="label label-primary"
+                                                                   data-toggle="collapse" data-target="#register-team-info">more</a>
+                                                <div class="collapse" id="register-team-info">
+                                                    You can see who all registered with your event.<br>On the map you can see the teams progress and the last know location of each team member
+                                                </div>
+                                            </li>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sign-up-htm">
+                            <div class="container-fluid info-content bg-primary">
+                                <h2>INFORMATION: <strong>Participant</strong></h2>
+                                <ul class="list-group">
+                                    <li class="list-group-item list-group-item-info">
+                                        The application has two user roles: Being a Participant is one of them.
+                                    </li>
+                                    <li class="list-group-item list-group-item-info">
+                                        Home page shows all the events around you. <br>You can also search for specific place and find events.
+                                        <br><br>If you are a first time user and want to participate in an event, register to the application as a participant.
+                                        <br><br>If you are revisiting, you can login.
+                                        <a class="label label-primary"
+                                           data-toggle="collapse" data-target="#more-participant-info">
+                                            more info
+                                        </a>
+                                    </li>
+                                    <div class="collapse" id="more-participant-info">
+                                        <li class="list-group-item list-group-item-info">
+                                            As a Participant you can switch between viewing all the events and the events you have registered to. <br>If your event is happening today, it's shown with a green marker on the map, red if it's in the future.
+                                        </li>
+                                        <li class="list-group-item list-group-item-info">
+                                            Registering to an event.<a class="label label-primary"
+                                                               data-toggle="collapse" data-target="#register-event-info">more</a>
+                                            <div class="collapse" id="register-event-info">
+                                                Click on the unregistered marker event you want to participate in, click on register and give a team name.
+                                                <br>If you want to join a team created by other participant/s you can search by team or you can search for a specific participant by username and join their team.
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item list-group-item-info">
+                                            Start an event.<a class="label label-primary"
+                                                                         data-toggle="collapse" data-target="#start-event-info">more</a>
+                                            <div class="collapse" id="start-event-info">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item list-group-item-info">
+                                                        Click on the registered marker event you want to start (one of the green marker/s).
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-info">
+                                                        If this is the first time you have started the event, you'll be able to see the first checkpoint.
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-info">
+                                                        The information/riddle in the previous checkpoint will lead you to the next checkpoint.
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-info">
+                                                        Click on "Am I here" button, if you think you have arrived at the next checkpoint.
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-info">
+                                                        The application reveals the checkpoints once you are within 100m of the checkpoint.
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-info">
+                                                        TThe last checkpoint will have the information that you have finished the event.
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-info">
+                                                        Unfortunately there is no winner team with this application currently, but the idea is to get on the road, team up, explore and have fun.
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-info">
+                                                        Happy Treasure-hunting...
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

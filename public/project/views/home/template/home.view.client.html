@@ -22,6 +22,11 @@
                         <button ng-click="model.updateMapCenter()" class="btn btn-default location-search"><i class="glyphicon glyphicon-map-marker"></i></button>
                     </div>
                 </div>
+                <ul class="form-group nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="modal" data-target="#info"><b>Info</b></a>
+                    </li>
+                </ul>
                 <ul ng-if="!model.user" class="form-group nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="modal" data-target="#login"><b>Sign In/Sign Up</b></a>
@@ -52,8 +57,11 @@
         </ui-gmap-google-map>
     </div>
 </div>
-
+<ng-include src="'views/home/template/login-signup-modal.view.client.html'"></ng-include>
+<ng-include src="'views/home/template/profile-modal.view.client.html'"></ng-include>
+<ng-include src="'views/home/template/info-modal.view.client.html'"></ng-include>
 <!--Login and Register modal pop up-->
+<!--
 <div class="modal fade" id="login" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -145,7 +153,7 @@
 </div>
 
 
-<!--Profile Modal pop up-->
+&lt;!&ndash;Profile Modal pop up&ndash;&gt;
 <div class="modal fade" id="profile" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -181,6 +189,9 @@
                                 <input id="profileSubmit" ng-click="model.updateProfile(model.user)"
                                        data-toggle="modal" data-target="#profile"
                                        type="submit" class="button" value="Update">
+                                <input id="profileCancel"
+                                       data-toggle="modal" data-target="#profile"
+                                       type="submit" class="button" value="Cancel">
                             </div>
                         </div>
                     </div>
@@ -188,4 +199,4 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->

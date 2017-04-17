@@ -1,0 +1,90 @@
+<!--Login and Register modal pop up-->
+<div class="modal fade" id="login" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="login-wrap">
+                <div class="login-html">
+                    <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+                    <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+                    <div class="login-form">
+                        <div class="sign-in-htm">
+                            <div ng-show="model.error" class="alert alert-danger">
+                                {{model.error}}
+                            </div>
+                            <div class="group">
+                                <label for="loginUsername" class="label">Username</label>
+                                <input ng-model="loginUser.username" id="loginUsername" type="text" class="input">
+                            </div>
+                            <div class="group">
+                                <label for="loginPassword" class="label">Password</label>
+                                <input ng-model="loginUser.password" id="loginPassword" type="password" class="input" data-type="password">
+                            </div>
+                            <div class="group">
+                                <input id="signinSubmit" ng-click="model.login(loginUser)"
+                                       type="submit" class="button" value="Sign In"
+                                       data-toggle="modal" data-target="#login">
+                            </div>
+                            <div class="group">
+                                <a href="/project/services/api/auth/google" class="button btn">
+                                    <span class="fa fa-google-plus"></span>
+                                    Google
+                                </a>
+                            </div>
+                        </div>
+                        <div class="sign-up-htm">
+                            <div ng-show="model.error" class="alert alert-danger">
+                                {{model.error}}
+                            </div>
+                            <div class="group">
+                                <label for="signupUsername" class="label">Username</label>
+                                <input ng-model="user.username" id="signupUsername" type="text" class="input">
+                            </div>
+                            <div class="group">
+                                <label for="signupPassword" class="label">Password</label>
+                                <input ng-model="user.password" id="signupPassword" type="password" class="input" data-type="password">
+                            </div>
+                            <div class="group">
+                                <label for="signupVerifyPassword" class="label">Verify Password</label>
+                                <input ng-model="user.verifypassword" id="signupVerifyPassword" type="password" class="input" data-type="password">
+                            </div>
+                            <div class="group">
+                                <label for="signupUserType" class="label">Sign in as</label>
+                                <div id="signupUserType" class="row">
+                                    <div class="col-xs-6">
+                                        <label class="radio-inline">
+                                            <input ng-model="user.userType" type="radio" name="userTypeOptions" id="inlineRadio1" value="organizer"> <label for="inlineRadio1" class="label text-right">Organizer</label>
+                                        </label>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label class="radio-inline">
+                                            <input ng-model="user.userType" type="radio" name="userTypeOptions" id="inlineRadio2" value="participant"> <label for="inlineRadio2" class="label">Participant</label>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="group">
+                                <label for="signupFirstName" class="label">First Name</label>
+                                <input ng-model="user.firstName" id="signupFirstName" type="text" class="input">
+                            </div>
+                            <div class="group">
+                                <label for="signupLastName" class="label">Last Name</label>
+                                <input ng-model="user.lastName" id="signupLastName" type="text" class="input">
+                            </div>
+                            <div class="group">
+                                <label for="signupEmail" class="label">Email Address</label>
+                                <input ng-model="user.email" id="signupEmail" type="text" class="input">
+                            </div>
+                            <div class="group">
+                                <label for="signupPhone" class="label">Phone Number</label>
+                                <input ng-model="user.phone" id="signupPhone" type="text" class="input">
+                            </div>
+                            <div class="group">
+                                <input id="signupSubmit" ng-click="model.register(user)" type="submit" class="button" value="Sign Up">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
