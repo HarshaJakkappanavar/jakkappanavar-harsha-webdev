@@ -134,7 +134,7 @@ html, body {
 }
 
 .info-content>.list-group {
-    height: 540px;
+    height: 505px;
     overflow-y: auto;
 }
 
