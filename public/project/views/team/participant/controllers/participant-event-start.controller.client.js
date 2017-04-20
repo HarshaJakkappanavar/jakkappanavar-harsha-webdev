@@ -19,7 +19,7 @@
         initGeoLocation();
 
         function initGeoLocation() {
-            $geolocation.getCurrentPosition().then(function(position) {
+            $geolocation.getCurrentPosition({ enableHighAccuracy:true }).then(function(position) {
                 console.log(position, 'current position');
 
                 MemberService
@@ -162,7 +162,7 @@
         }
 
         function checkReached() {
-            $geolocation.getCurrentPosition().then(function(position) {
+            $geolocation.getCurrentPosition({ enableHighAccuracy:true }).then(function(position) {
                 if(vm.team.checkpoints.length < vm.allCheckpoints.length){
                     var nextCheckpoint = vm.allCheckpoints[vm.team.checkpoints.length];
                     var distance = vm.maps.geometry.spherical
